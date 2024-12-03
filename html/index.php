@@ -73,5 +73,5 @@ $pass=hashing("Jérémie",1);
 
 if (password_verify("Jérémie",$pass))
     echo "La password corrisponde";
-else
+else    
     echo "La password non corrisponde";
