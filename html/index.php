@@ -82,7 +82,10 @@
                                 </ul>
                             </div> <!-- navbar collapse -->
                             <div class="button">
-                                <a href="pricing.html" class="btn">Cercare ...<i class="lni lni-ticket"></i></a>
+                                <a href="login/" class="btn">Accesso<i class="lni lni-user"></i></a>
+                            </div>
+                            <div class="button">
+                                <a href="login/registrati.php" class="btn">Registrati<i class="lni lni-user"></i></a>
                             </div>
                         </nav>
                         <!-- End Navbar -->
@@ -124,14 +127,14 @@
                         <div class="box-content">
                             <div class="box">
                                 <h1 id="days">000</h1>
-                                <h2 id="daystxt">Days</h2>
+                                <h2 id="daystxt">Eventi disponibili</h2>
                             </div>
                             <div class="box">
                                 <h1 id="hours">24</h1>
-                                <h2 id="hourstxt">Hours</h2>
+                                <h2 id="hourstxt">Eventi passati</h2>
                             </div>
                             <div class="box">
-                                <h1 id="minutes">00</h1>
+                                <h1 id="minutes">60</h1>
                                 <h2 id="minutestxt">Minutes</h2>
                             </div>
                             <div class="box">
@@ -173,7 +176,7 @@
                             from.</p> <br>
 
                             <div class="service-icon" >
-                            <i class="lni lni-bullhorn"></i> 
+                            <i class="lni lni-heart"></i> 
                         </div>
                         <div style="float:right" class="btn btn-primary">Partecipare</div>
                     </div>
@@ -186,122 +189,9 @@
     </section>
     <!-- /End Features Area -->
 
-    <!-- Start Pricing Table Area -->
-    <section id="pricing" class="pricing-table section extra-page bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title">
-                        <h3 class="wow zoomIn" data-wow-delay=".2s">pricing</h3>
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Pricing & Plans</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
-                            Ipsum available, but the majority have suffered alteration in some form.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".4s">
-                    <!-- Single Table -->
-                    <div class="single-table">
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">Regular</h4>
-                            <p>Available tickets for this price</p>
-                            <div class="price">
-                                <h2 class="amount">$10</h2>
-                            </div>
-                        </div>
-                        <!-- End Table Head -->
-                        <div class="button">
-                            <a href="javascript:void(0)" class="btn">Get Ticket</a>
-                        </div>
-                        <!-- Start Table Content -->
-                        <div class="table-content">
-                            <!-- Table List -->
-                            <ul class="table-list">
-                                <li>One Day Conference Ticket</li>
-                                <li>Posters Session</li>
-                                <li>Coffee-break & Networking
-                                </li>
-                                <li>Lunch & Networing</li>
-                                <li>Keynote talk</li>
-                            </ul>
-                            <!-- End Table List -->
-                        </div>
-                        <!-- End Table Content -->
-                    </div>
-                    <!-- End Single Table-->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".6s">
-                    <!-- Single Table -->
-                    <div class="single-table middle">
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">Exclusive</h4>
-                            <p>Available tickets for this price</p>
-                            <div class="price">
-                                <h2 class="amount">$99</h2>
-                            </div>
-                        </div>
-                        <!-- End Table Head -->
-                        <div class="button">
-                            <a href="javascript:void(0)" class="btn btn-alt">Get Ticket</a>
-                        </div>
-                        <!-- Start Table Content -->
-                        <div class="table-content">
-                            <!-- Table List -->
-                            <ul class="table-list">
-                                <li>Three Day Conference Ticket</li>
-                                <li>Posters Session</li>
-                                <li>Coffee-break & Networking
-                                </li>
-                                <li>Lunch & Networing</li>
-                                <li>Keynote talk</li>
-                            </ul>
-                            <!-- End Table List -->
-                        </div>
-                        <!-- End Table Content -->
-                    </div>
-                    <!-- End Single Table-->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".8s">
-                    <!-- Single Table -->
-                    <div class="single-table">
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">Premium</h4>
-                            <p>Available tickets for this price</p>
-                            <div class="price">
-                                <h2 class="amount">$289</h2>
-                            </div>
-                        </div>
-                        <!-- End Table Head -->
-                        <div class="button">
-                            <a href="javascript:void(0)" class="btn">Get Ticket</a>
-                        </div>
-                        <!-- Start Table Content -->
-                        <div class="table-content">
-                            <!-- Table List -->
-                            <ul class="table-list">
-                                <li>Five Day Conference Ticket</li>
-                                <li>Posters Session</li>
-                                <li>Coffee-break & Networking
-                                </li>
-                                <li>Lunch & Networing</li>
-                                <li>Keynote talk</li>
-                            </ul>
-                            <!-- End Table List -->
-                        </div>
-                        <!-- End Table Content -->
-                    </div>
-                    <!-- End Single Table-->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--/ End Pricing Table Area -->
 
-    <!-- Start Call Action Area -->
+
+    <!-- Start Call Action Area --
     <section class="call-action overlay">
         <div class="container">
             <div class="row align-items-center">
@@ -322,7 +212,7 @@
             </div>
         </div>
     </section>
-    <!-- End Call Action Area -->
+    - End Call Action Area -->
 
    <?php include "inc/footer.php"; ?>
 
