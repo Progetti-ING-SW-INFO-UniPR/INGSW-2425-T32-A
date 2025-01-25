@@ -32,9 +32,7 @@
                       <div class="form-group">
 		      			<input type="text" class="form-control" placeholder="Inserire l'indirizzo mail" required>
 		      		</div>
-                      <div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Ripetere l'indirizzo mail" required>
-		      		</div>
+                    
 	            <div class="form-group">
 	              <input id="password-field" type="password" class="form-control" placeholder="Inserire la password" required>
 	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
@@ -45,8 +43,12 @@
 	            </div>
                 </div>
                       <div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Inserire il numero di telefono" required>
-		      		</div>
+					  <label for="options" >Tipologia di utente: </label>
+						<select id="options" name="options">
+							<option value="option1">Ricercatore</option>
+							<option value="option2">Altri enti</option>
+						</select>	
+			      		</div>
 	            <div class="form-group">
 	            	<button type="submit" class="form-control btn btn-primary submit px-3">Registrati</button>
 	            </div>
