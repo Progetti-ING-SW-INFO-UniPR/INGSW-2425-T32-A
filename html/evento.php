@@ -4,31 +4,13 @@
 
 <?php include "inc/head.php"; ?>
 
-<body>
-    <!--[if lte IE 9]>
-      <p class="browserupgrade">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-        your experience and security.
-      </p>
-    <![endif]-->
-
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-icon">
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </div>
-    <!-- /End Preloader -->
-
+<body >
+   
     <!-- Start Header Area -->
     <header class="header navbar-area">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-12">
+                <div class="col-lg-10">
                     <div class="nav-inner">
                         <!-- Start Navbar -->
                         <nav class="navbar navbar-expand-lg">
@@ -45,42 +27,18 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
-                                        <a href="index.html" class="active" aria-label="Toggle navigation">Home</a>
+                                        <a href="index" aria-label="Toggle navigation">HOME PAGE</a>
+                                    </li>
+                    
+                                    <li class="nav-item">
+                                        <a href="login/" aria-label="Toggle navigation">LOGIN</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-1" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Pages</a>
-                                      <!-- <ul class="sub-menu collapse" id="submenu-1-1">
-                                            <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                            <li class="nav-item"><a href="gallery.html">Gallery</a></li>
-                                            <li class="nav-item"><a href="pricing.html">Pricing</a></li>
-                                            <li class="nav-item"><a href="sponsors.html">Sponsors</a></li>
-                                            <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                                            <li class="nav-item"><a href="404.html">404 Error</a></li>
-                                        </ul> -->
+                                        <a href="login/registrati" aria-label="Toggle navigation">REGISTRATI</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="schedule.html" aria-label="Toggle navigation">Schedule</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="speakers.html" aria-label="Toggle navigation">Speakers</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Blog</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-2">
-                                            <li class="nav-item"><a href="blog-grid.html">Blog Grid</a>
-                                            </li>
-                                            <li class="nav-item"><a href="blog-single.html">Blog Single</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="contact.html" aria-label="Toggle navigation">Contact</a>
-                                    </li>
+                                   
                                 </ul>
-                            </div> <!-- navbar collapse -->
+                            </div> <!-- navbar collapse -
                             <div class="button">
                                 <a href="login/" class="btn">Accesso<i class="lni lni-user"></i></a>
                             </div>
@@ -88,7 +46,7 @@
                                 <a href="login/registrati.php" class="btn">Registrati<i class="lni lni-user"></i></a>
                             </div>
                         </nav>
-                        <!-- End Navbar -->
+                                End Navbar -->
                     </div>
                 </div>
             </div> <!-- row -->
@@ -106,11 +64,23 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 offset-lg-3 col-md-12 col-12">
                     <div class="hero-content">
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">EventApp vi propone una serie di evento che corrisponde alle vostre preferenze</h2>
-                     
-                        <div class="button wow fadeInUp" data-wow-delay=".8s">
+
+                        <!--<div class="button wow fadeInUp" data-wow-delay=".8s">
                             <a href="pricing.html" class="btn ">Hashtag @</a>
+                        </div>  -->
+
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="hero-content">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="@hashtag..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button"> 
+                                    <i class="lni lni-search"></i>
+                                </button>
+                            </div>
                         </div>
+                    </form>
+
                     </div>
                 </div>
             </div>
@@ -126,21 +96,14 @@
                     <div class="box-head">
                         <div class="box-content">
                             <div class="box">
-                                <h1 id="days">000</h1>
+                                <h1 id="days">12</h1>
                                 <h2 id="daystxt">Eventi disponibili</h2>
                             </div>
                             <div class="box">
                                 <h1 id="hours">24</h1>
                                 <h2 id="hourstxt">Eventi passati</h2>
                             </div>
-                            <div class="box">
-                                <h1 id="minutes">60</h1>
-                                <h2 id="minutestxt">Minutes</h2>
-                            </div>
-                            <div class="box">
-                                <h1 id="seconds">00</h1>
-                                <h2 id="secondstxt">Secondes</h2>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -150,18 +113,38 @@
     <!-- End Count Down Area -->
 
     <!-- Start Features Area -->
-    <section class="features section">
+    <section class="features section" style="background-image: url(img/bg.jpg); background-attachment: fixed;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h3 class="wow zoomIn" data-wow-delay=".2s">Nuovi eventi</h3>
+                        <h3 class="wow zoomIn" data-wow-delay=".2s">Visualizza eventi</h3>
                       
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".4s">
+                <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay=".4s">
+                    <!-- Start Single Feature -->
+                    <div class="single-featuer">
+                    <div class="action-box">
+									<img style="border-radius: 15px;" src="img/event1.jpg" alt="">
+								</div> <br>
+                        <img class="shape" src="assets/images/features/shape.svg" alt="#">
+                        <img class="shape2" src="assets/images/features/shape2.svg" alt="#">
+                        <span class="serial">02</span>
+                       
+                        <h3>Moto express </h3> <div class="btn btn-success">18/01/2025</div> <br> <br>
+                        <p>How you transform your business as tech, consumer, habits industry dynamic change, Find out
+                            from.</p> <br>
+
+                            <div class="service-icon" >
+                            <i class="lni lni-heart"></i> 
+                        </div>
+                        <div style="float:right" class="btn btn-primary">Partecipare</div>
+                    </div>
+                    <!-- End Single Feature -->
+
                     <!-- Start Single Feature -->
                     <div class="single-featuer">
                     <div class="action-box">
@@ -182,39 +165,12 @@
                     </div>
                     <!-- End Single Feature -->
                 </div>
-             
            
             </div>
         </div>
     </section>
     <!-- /End Features Area -->
-
-
-
-    <!-- Start Call Action Area --
-    <section class="call-action overlay">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8 offset-lg-2 col-md-12 col-12">
-                    <div class="inner-content">
-                        <div class="text">
-                            <h5 class="wow zoomIn" data-wow-delay=".2s">Free Lite Version</h5>
-                            <h2 class="wow fadeInUp" data-wow-delay=".4s">Currently you are using free LiteVersion of EventGrids
-                            </h2>
-                            <p class="wow fadeInUp" data-wow-delay=".6s">Please, purchase full version of the template
-                                to get all pages, features and commercial license.</p>
-                        </div>
-                        <div class="button wow fadeInUp" data-wow-delay=".8s">
-                            <a href="javascript:void(0)" class="btn">Buy Now <i class="lni lni-cart-full"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    - End Call Action Area -->
-
-   <?php include "inc/footer.php"; ?>
+  
 
     <!-- ========================= scroll-top ========================= -->
     <a href="#" class="scroll-top">

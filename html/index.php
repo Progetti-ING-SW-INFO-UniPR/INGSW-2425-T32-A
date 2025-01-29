@@ -13,6 +13,18 @@
 
 	</head>
 	<body style="background-image: url(img/bg.jpg);">
+
+	<!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
 	<section class="ftco-section">
 		<div class="container">
 			 <div class="row justify-content-center">
@@ -34,13 +46,13 @@
 	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 	            </div>-->
 	            <div class="form-group">
-	            	<a href="evento.php"><button type="submit" class="form-control btn btn-primary submit px-3">Visualizza eventi</button></a>
+	            	<a href="evento"><button type="submit" class="form-control btn btn-primary submit px-3">Visualizza eventi</button></a>
 	            </div>
 				<div class="form-group">
 	            	<a href="login/"><button type="submit" class="form-control btn btn-primary submit px-3">Login</button></a>
 	            </div>
 				<div class="form-group">
-	            	<a href="login/registrati.php"><button type="submit" class="form-control btn btn-primary submit px-3">Registra account</button></a>
+	            	<a href="login/registrati"><button type="submit" class="form-control btn btn-primary submit px-3">Registra account</button></a>
 	            </div>
 	           <!-- <div class="form-group d-md-flex">
 	            	<div class="w-50">
