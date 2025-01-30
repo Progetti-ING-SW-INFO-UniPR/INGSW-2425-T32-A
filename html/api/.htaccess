@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Vérifier si l'URL demandée n'est pas un fichier ou un dossier existant
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Si l'URL est juste api/evento, redirige vers api/evento.php
+RewriteRule ^evento$ evento.php [QSA,L]
+
+# Réécrire api/evento/1 en api/evento.php?id=1
+RewriteRule ^evento/([0-9]+)$ evento.php?id=$1 [QSA,L]

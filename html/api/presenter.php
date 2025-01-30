@@ -13,11 +13,17 @@ class Presenter {
         $this->view = new view();
     }
 
-    public function handleRequest($method, $data) {
+    public function handleRequest($method, $data,$id) {
         switch ($method) {
             case 'GET':
-                $articles = $this->model->getEventi();
-                $this->view->response($articles);
+                if($id != NULL){
+                    $articles=$this->model->getEventiById($id);
+                    $this->view->response($articles);
+                } else{
+                    $articles = $this->model->getEventi();
+                    $this->view->response($articles);
+                }
+              
                 break;
 
             case 'POST':

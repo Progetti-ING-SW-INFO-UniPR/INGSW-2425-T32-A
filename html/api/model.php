@@ -27,6 +27,13 @@ class model{
         return $result;
     }
 
+    public function getEventiById($id) {
+        $res=$this->pdo->prepare("SELECT * FROM eventi WHERE id_evento=$id");
+        $res->execute();
+        $result=$res->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     // Mettre à jour un article
     public function updateArticle($id, $title, $body) {
         $query = "UPDATE articles SET title = :title, body = :body WHERE id = :id";

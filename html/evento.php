@@ -124,6 +124,19 @@
                 </div>
             </div>
             <div class="row" id="getEvent"></div>
+            <div class="row">
+                            <div id="event-detail-container" style="display: none;">
+                                 <div class="event-detail">
+                            <img id="event-detail-image" src="" alt="Event Image">
+                        <h2 id="event-detail-title"></h2>
+                        <div class="btn btn-success" id="event-detail-date"></div>
+                        <p id="event-detail-description"></p>
+                        <button class="btn btn-primary">S'inscrire</button>
+                        <button class="btn btn-danger" id="btn-retour">Fermer</button>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
     <!-- /End Features Area -->
@@ -141,103 +154,10 @@
     <script src="assets/js/glightbox.min.js"></script>
     <script src="assets/js/count-up.min.js"></script>
     <script src="assets/js/main.js"></script>
-    <script>
-        //========= glightbox
-        GLightbox({
-            'href': 'https://www.youtube.com/watch?v=Gxw45q3Ga3k',
-            'type': 'video',
-            'source': 'youtube', //vimeo, youtube or local
-            'width': 900,
-            'autoplayVideos': true,
-        });
-
-        //========= testimonial 
-        tns({
-            container: '.testimonial-slider',
-            items: 3,
-            slideBy: 'page',
-            autoplay: false,
-            mouseDrag: true,
-            gutter: 0,
-            nav: true,
-            controls: false,
-            controlsText: ['<i class="lni lni-arrow-left"></i>', '<i class="lni lni-arrow-right"></i>'],
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                540: {
-                    items: 1,
-                },
-                768: {
-                    items: 2,
-                },
-                992: {
-                    items: 2,
-                },
-                1170: {
-                    items: 3,
-                }
-            }
-        });
-    </script>
-    <script>
-        const finaleDate = new Date("February 15, 2023 00:00:00").getTime();
-
-        const timer = () => {
-            const now = new Date().getTime();
-            let diff = finaleDate - now;
-            if (diff < 0) {
-                document.querySelector('.alert').style.display = 'block';
-                document.querySelector('.container').style.display = 'none';
-            }
-
-            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            let hours = Math.floor(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
-            let minutes = Math.floor(diff % (1000 * 60 * 60) / (1000 * 60));
-            let seconds = Math.floor(diff % (1000 * 60) / 1000);
-
-            days <= 99 ? days = `0${days}` : days;
-            days <= 9 ? days = `00${days}` : days;
-            hours <= 9 ? hours = `0${hours}` : hours;
-            minutes <= 9 ? minutes = `0${minutes}` : minutes;
-            seconds <= 9 ? seconds = `0${seconds}` : seconds;
-
-            document.querySelector('#days').textContent = days;
-            document.querySelector('#hours').textContent = hours;
-            document.querySelector('#minutes').textContent = minutes;
-            document.querySelector('#seconds').textContent = seconds;
-
-        }
-        timer();
-        setInterval(timer, 1000);
-    </script>
-
-  <!--  <script>
-        function getAllArticles() {
-            fetch('api/index.php')  // 🔹 Appelle l'API en GET
-                .then(response => response.json())  // Convertit la réponse en JSON
-                .then(articles => {
-                console.log("Données reçues:", articles);  // 🔍 Vérifie la réponse
-                const liste = document.getElementById("event-list");
-                liste.innerHTML = "";  // Efface l'affichage précédent
-
-                articles.forEach(article => {
-                    const item = document.createElement("li");
-                    item.textContent = `${article.id_evento} - ${article.titolo}`;
-                    liste.appendChild(item);
-                });
-                })
-                .catch(error => console.error("Erreur:", error));
-        }
-
-
-        getAllArticles();  // 🔹 Appelle la fonction pour récupérer les articles
-</script> -->
 
 <script>
 function getAllArticles() {
-    fetch('api/')
+    fetch('api/evento')
         .then(response => response.json())
         .then(articles => {
             const container = document.getElementById("getEvent");
@@ -245,22 +165,26 @@ function getAllArticles() {
 
             articles.forEach((article, index) => {
                 const articleHTML = `
-                    <div class="col-lg-4 col-md-6 col-6 wow" data-wow-delay=".${index + 2}s">
+                    <div class="col-lg-4 col-md-6 col-12 wow">
                         <!-- Start Single Feature -->
                         <div class="single-featuer">
                             <div class="action-box">
-                                <img style="border-radius: 15px;" src="img/event1.jpg" alt="">
+                                <img style="border-radius: 15px;" src="img/${article.image}" alt="">
                             </div> <br>
                             <img class="shape" src="assets/images/features/shape.svg" alt="#">
                             <img class="shape2" src="assets/images/features/shape2.svg" alt="#">
-                            <span class="serial">${index + 1}</span>
+                           
                             <h3>${article.titolo}</h3> 
+                             <span class="serial">${index + 1}</span>
                             <div class="btn btn-success">${article.data_creazione}</div> <br> <br>
+                            <div class="hero-content"> <h5><i class="lni lni-map-marker"></i> ${article.luogo_svolgimento} </h5>  <br>
+                            </div>
                             <p>${article.descrizione}</p> <br>
                             <div class="service-icon">
-                                <i class="lni lni-heart"></i> 
+                                <i class="lni lni-users"> <br> 2 </i> 
                             </div>
-                            <div style="float:right" class="btn btn-primary">Iscriversi</div>
+                          
+                            <div style="float:right" data-id="${article.id_evento}" class="btn btn-primary btn-iscriversi">Iscriversi</div>
                         </div>
                         <!-- End Single Feature -->
                     </div>
@@ -274,7 +198,41 @@ function getAllArticles() {
 }
     getAllArticles();
 
-   setInterval(getAllArticles, 1000);
+   setInterval(getAllArticles, 5000);
+
+   // Fonction pour afficher les détails de l'événement
+        function showEventDetails(eventId) {
+            fetch(`/api/evento/${eventId}`) // Récupère les détails de l'événement via l'API
+                .then(response => response.json())
+                .then(event => {
+                    console.log(event);
+                    // Met à jour la zone de détails avec les infos de l'événement
+                    document.getElementById("event-detail-title").textContent = event.titolo;
+                    document.getElementById("event-detail-date").textContent = event.data_creazione;
+                    document.getElementById("event-detail-description").textContent = event.descrizione;
+                    document.getElementById("event-detail-image").src = "img/"+event.image || img/event1.jpg;
+
+                    // Affiche la section des détails
+                    document.getElementById("event-detail-container").style.display = "block";
+                })
+                .catch(error => console.error("Erreur:", error));
+        }
+
+            // Ajoute un événement "click" sur tous les boutons "Iscriversi"
+        document.addEventListener("click", function (event) {
+            if (event.target.classList.contains("btn-iscriversi")) {
+                let eventId = event.target.getAttribute("data-id");
+                showEventDetails(eventId);
+                document.getElementById("getEvent").style.display="none";
+            }
+        });
+
+        document.getElementById("btn-retour").addEventListener("click", function () {
+            document.getElementById("event-detail-container").style.display = "none"; // Cache les détails
+            document.getElementById("getEvent").style.display = "block"; // Réaffiche la liste des articles
+        });
+
+
 </script>
 
 </body>
