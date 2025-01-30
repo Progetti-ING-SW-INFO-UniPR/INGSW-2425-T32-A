@@ -1,83 +1,16 @@
 <?php
 
-$host="ids-db-1";
-$nome_database="test";
-$nome="root";
-$password="root_password";
+require_once "database.php";
+require_once "model.php";
+require_once "view.php";
 
-$db= new PDO("mysql:dbname=$nome_database;host=$host", "$nome", "$password");
-
-var_dump($db);
-
-$res=$db->query("SELECT * FROM eventi");
-
-$result=$res->fetchAll(PDO::FETCH_ASSOC);
-echo json_encode($result);
-
-class EventoView {
-    public function response($data, $status = 200) {
-        http_response_code($status);
-        echo json_encode($data);
-    }
-
-    public function error($message, $status = 400) {
-        http_response_code($status);
-        echo json_encode(["error" => $message]);
-    }
-}
-
-class EventoModel {
-    private $conn;
-
-    public function __construct($db) {
-        $this->conn = $db;
-    }
-
-    // Créer un article
-    public function createArticle($title, $body) {
-        $query = "INSERT INTO articles (title, body) VALUES (:title, :body)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":title", $title);
-        $stmt->bindParam(":body", $body);
-        return $stmt->execute();
-    }
-
-    // recuperer tous les evenements
-    public function getEventi() {
-        $query = "SELECT * FROM test";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // Mettre à jour un article
-    public function updateArticle($id, $title, $body) {
-        $query = "UPDATE articles SET title = :title, body = :body WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":title", $title);
-        $stmt->bindParam(":body", $body);
-        return $stmt->execute();
-    }
-
-    // Supprimer un article
-    public function deleteArticle($id) {
-        $query = "DELETE FROM eventi WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":id", $id);
-        return $stmt->execute();
-    }
-}
-
-
-
-class EventoPresenter {
+class Presenter {
     private $model;
     private $view;
 
     public function __construct($db) {
-        $this->model = new EventoModel($db);
-        $this->view = new EventoView();
+        $this->model = new model($db);
+        $this->view = new view();
     }
 
     public function handleRequest($method, $data) {

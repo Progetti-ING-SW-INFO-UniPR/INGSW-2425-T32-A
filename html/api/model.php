@@ -3,8 +3,16 @@
 include "database.php";
 
 
+class model{
+    
+    private $pdo;
+
+    public function __construct($database){
+        $this->pdo=$database;
+    }
+
     // Créer un article
-    function createArticle($title, $body, $db) {
+    public function createArticle($title, $body, $db) {
         $query = "INSERT INTO articles (title, body) VALUES (:title, :body)";
         $stmt = $db->query($query);
         $stmt->bindParam(":title", $title);
@@ -13,14 +21,14 @@ include "database.php";
     }
 
     // recuperer tous les evenements
-     function getEventi($pdo) {
-        $res=$pdo->query("SELECT * FROM eventi");
+    public function getEventi() {
+        $res=$this->pdo->query("SELECT * FROM eventi");
         $result=$res->fetchAll(PDO::FETCH_ASSOC);
-        return json_encode($result);
+        return $result;
     }
 
     // Mettre à jour un article
-     function updateArticle($id, $title, $body) {
+    public function updateArticle($id, $title, $body) {
         $query = "UPDATE articles SET title = :title, body = :body WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
@@ -30,10 +38,10 @@ include "database.php";
     }
 
     // Supprimer un article
-     function deleteArticle($id) {
+    public function deleteArticle($id) {
         $query = "DELETE FROM eventi WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         return $stmt->execute();
     }
-
+}

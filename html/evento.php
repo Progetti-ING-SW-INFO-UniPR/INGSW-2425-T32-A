@@ -118,7 +118,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h3 class="wow zoomIn" data-wow-delay=".2s">Visualizza eventi</h3>
+                        <h3 style="color:white" class="wow zoomIn" data-wow-delay=".2s">Visualizza eventi</h3>
                       
                     </div>
                 </div>
@@ -144,7 +144,10 @@
                         <div style="float:right" class="btn btn-primary">Partecipare</div>
                     </div>
                     <!-- End Single Feature -->
+                </div>
 
+
+            <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay=".4s">
                     <!-- Start Single Feature -->
                     <div class="single-featuer">
                     <div class="action-box">
@@ -155,8 +158,11 @@
                         <span class="serial">02</span>
                        
                         <h3>Moto express </h3> <div class="btn btn-success">18/01/2025</div> <br> <br>
-                        <p>How you transform your business as tech, consumer, habits industry dynamic change, Find out
-                            from.</p> <br>
+                        <p>
+                            <ul id="event-list">
+
+                            </ul>
+                        </p> <br>
 
                             <div class="service-icon" >
                             <i class="lni lni-heart"></i> 
@@ -164,7 +170,9 @@
                         <div style="float:right" class="btn btn-primary">Partecipare</div>
                     </div>
                     <!-- End Single Feature -->
-                </div>
+            </div>
+
+  
            
             </div>
         </div>
@@ -255,6 +263,60 @@
         timer();
         setInterval(timer, 1000);
     </script>
+
+  <!--  <script>
+        function getAllArticles() {
+            fetch('api/index.php')  // 🔹 Appelle l'API en GET
+                .then(response => response.json())  // Convertit la réponse en JSON
+                .then(articles => {
+                console.log("Données reçues:", articles);  // 🔍 Vérifie la réponse
+                const liste = document.getElementById("event-list");
+                liste.innerHTML = "";  // Efface l'affichage précédent
+
+                articles.forEach(article => {
+                    const item = document.createElement("li");
+                    item.textContent = `${article.id_evento} - ${article.titolo}`;
+                    liste.appendChild(item);
+                });
+                })
+                .catch(error => console.error("Erreur:", error));
+        }
+
+
+        getAllArticles();  // 🔹 Appelle la fonction pour récupérer les articles
+</script> -->
+
+<script>
+
+    function getAllArticles(){
+    fetch('api/')
+  .then(response => response.json()) 
+  .then(articles => {
+    console.log("Données reçues:", articles);  // Vérification des données
+    
+    if (Array.isArray(articles)) {
+      console.log("C'est bien un tableau ✅");
+    } else {
+      console.log("⚠ Attention, ce n'est pas un tableau !");
+      articles = [articles];  // Convertir en tableau manuellement
+    }
+
+    const liste = document.getElementById("event-list");
+    liste.innerHTML = "";
+
+    articles.forEach(article => {
+      const item = document.createElement("li");
+      item.textContent = `${article.id_evento} - ${article.titolo}`;
+      liste.appendChild(item);
+    });
+  })
+  .catch(error => console.error("Erreur:", error));
+}
+    getAllArticles();
+
+    setInterval(getAllArticles, 1000);
+</script>
+
 </body>
 
 </html>

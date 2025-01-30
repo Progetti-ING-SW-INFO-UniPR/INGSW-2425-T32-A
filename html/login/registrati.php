@@ -66,7 +66,7 @@
 	          </form>
               <a href="../index.php"><button class="btn btn-success" style="float:left">Home page</button></a>
 
-			<a href="index.php"><button class="btn btn-success" style="float:right">Accedere</button></a>  
+			<a href="index"><button class="btn btn-success" style="float:right">Accedere</button></a>  
 	          <!--<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
 	          <div class="social d-flex text-center">
 	          	<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
