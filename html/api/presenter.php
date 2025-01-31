@@ -72,3 +72,26 @@ class Presenter {
     }
 }
 
+
+function richiesta($method,$data,$database) {
+    switch ($method) {
+        case "POST":
+            if (isset($data["action"]) && $data["action"] == "login") {
+               
+            } elseif (isset($data["action"]) && $data["action"] == "register") {
+               if(registra_account($data,$database))
+                     echo json_encode(["success" => true, "message" => "I dati sono stati inseriti correttamento, verrai reindirizzato nella pagina di login..."]);
+                else   
+                     echo json_encode(["success" => false, "message" => "Errore !"]);
+            }
+            break;
+        case "GET":
+         
+            break;
+        case "DELETE":
+            
+            break;
+        default:
+            echo json_encode(["error" => "Méthode non supportée"]);
+    }
+}

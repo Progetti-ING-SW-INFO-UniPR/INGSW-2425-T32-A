@@ -52,3 +52,16 @@ class model{
         return $stmt->execute();
     }
 }
+
+
+ function registra_account($data,$db) {
+        $req = $db->prepare("INSERT INTO account SET nome_utente=?, indirizzo_mail=?, mdp=?, tipologia=?");
+        $success =  $req->execute([
+            $data["nome_utente"], 
+            $data["indirizzo_mail"], 
+            $data["password"], 
+            $data["tipologia"]
+        ]);
+    
+        return $success;
+}
