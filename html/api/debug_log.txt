@@ -1,9 +1,0 @@
-Méthode: POST
-Données: stdClass Object
-(
-    [action] => register
-    [nome_utente] => virginie
-    [indirizzo_mail] => jk@gmail.com
-    [password] => korangi
-    [tipologia] => korangi
-)
