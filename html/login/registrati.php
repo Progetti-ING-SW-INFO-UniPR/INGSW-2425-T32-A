@@ -43,8 +43,8 @@
 					<div class="form-group">
 						<label for="options">Tipologia di utente: </label>
 						<select id="tipologia" name="options">
-							<option value="option1">Ricercatore</option>
-							<option value="option2">Altri enti</option>
+							<option value="ricercatore">Ricercatore</option>
+							<option value="altri_enti">Altri enti</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
        
         if (password.length < 6) {
-            errors.push("La password deve contenere almene 6 caratteri.");
+            errors.push("La password deve contenere almeno 6 caratteri.");
         }
 
       
@@ -106,14 +106,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (errors.length > 0) {
             alert(errors.join("\n")); 
         } else {
-            alert("Complimenti ! La registrazione è andata bene");
-			
+						
 			const username = document.getElementById("nome_utente").value;
             const email = document.getElementById("indirizzo_mail").value;
             const password = document.getElementById("password").value;
-			const typ=document.getElementById("password").value;
-
-			console.log(username);
+			const typ=document.getElementById("tipologia").value;
 
             fetch("../api/utente", {
                 method: "POST",

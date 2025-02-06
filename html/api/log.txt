@@ -1,0 +1,23 @@
+{"id_account":"20"}
+{"id_account":"20"}
+{"id_account":"20"}
+{"id_account":"20"}
+{"id_account":"20"}
+{"id_account":"20"}
+{"id_account":"20"}
+{"id_account":"20"}
+"GET"
+"GET"
+[{"id_evento":"9","titolo":"Giselle","descrizione":"<p style=\"text-align: center;\"><strong>Benvenuto in questa edizione di presentazione della banca san felice in cui parleremo dei vantaggi di aver un conto bancario in questo secolo.<\/strong><\/p>","data_svolgimento":"28-02-25 12:00","luogo_svolgimento":"Bologna","autore":"20","data_creazione":"2025-02-05","immagine":"Screenshot 2024-12-25 133356.png","status":null}]
+[{"id_evento":"9","titolo":"Giselle","descrizione":"<p style=\"text-align: center;\"><strong>Benvenuto in questa edizione di presentazione della banca san felice in cui parleremo dei vantaggi di aver un conto bancario in questo secolo.<\/strong><\/p>","data_svolgimento":"28-02-25 12:00","luogo_svolgimento":"Bologna","autore":"20","data_creazione":"2025-02-05","immagine":"Screenshot 2024-12-25 133356.png","status":null}]
+[{"id_evento":"9","titolo":"Giselle","descrizione":"<p style=\"text-align: center;\"><strong>Benvenuto in questa edizione di presentazione della banca san felice in cui parleremo dei vantaggi di aver un conto bancario in questo secolo.<\/strong><\/p>","data_svolgimento":"28-02-25 12:00","luogo_svolgimento":"Bologna","autore":"20","data_creazione":"2025-02-05","immagine":"Screenshot 2024-12-25 133356.png","status":null}]
+[{"id_evento":"9","titolo":"Giselle","descrizione":"<p style=\"text-align: center;\"><strong>Benvenuto in questa edizione di presentazione della banca san felice in cui parleremo dei vantaggi di aver un conto bancario in questo secolo.<\/strong><\/p>","data_svolgimento":"28-02-25 12:00","luogo_svolgimento":"Bologna","autore":"20","data_creazione":"2025-02-05","immagine":"Screenshot 2024-12-25 133356.png","status":null}]
+[{"id_evento":"9","titolo":"Giselle","descrizione":"<p style=\"text-align: center;\"><strong>Benvenuto in questa edizione di presentazione della banca san felice in cui parleremo dei vantaggi di aver un conto bancario in questo secolo.<\/strong><\/p>","data_svolgimento":"28-02-25 12:00","luogo_svolgimento":"Bologna","autore":"20","data_creazione":"2025-02-05","immagine":"Screenshot 2024-12-25 133356.png","status":null}]
+[{"id_evento":"9","titolo":"Giselle","descrizione":"<p style=\"text-align: center;\"><strong>Benvenuto in questa edizione di presentazione della banca san felice in cui parleremo dei vantaggi di aver un conto bancario in questo secolo.<\/strong><\/p>","data_svolgimento":"28-02-25 12:00","luogo_svolgimento":"Bologna","autore":"20","data_creazione":"2025-02-05","immagine":"Screenshot 2024-12-25 133356.png","status":null}]
+[{"id_evento":"9","titolo":"Giselle","descrizione":"<p style=\"text-align: center;\"><strong>Benvenuto in questa edizione di presentazione della banca san felice in cui parleremo dei vantaggi di aver un conto bancario in questo secolo.<\/strong><\/p>","data_svolgimento":"28-02-25 12:00","luogo_svolgimento":"Bologna","autore":"20","data_creazione":"2025-02-05","immagine":"Screenshot 2024-12-25 133356.png","status":null}]
+Array
+Array
+Array
+Array
+[{"id_evento":"9","titolo":"Giselle","descrizione":"<p style=\"text-align: center;\"><strong>Benvenuto in questa edizione di presentazione della banca san felice in cui parleremo dei vantaggi di aver un conto bancario in questo secolo.<\/strong><\/p>","data_svolgimento":"28-02-25 12:00","luogo_svolgimento":"Bologna","autore":"20","data_creazione":"2025-02-05","immagine":"Screenshot 2024-12-25 133356.png","status":null}]
+[{"id_evento":"9","titolo":"Giselle","descrizione":"<p style=\"text-align: center;\"><strong>Benvenuto in questa edizione di presentazione della banca san felice in cui parleremo dei vantaggi di aver un conto bancario in questo secolo.<\/strong><\/p>","data_svolgimento":"28-02-25 12:00","luogo_svolgimento":"Bologna","autore":"20","data_creazione":"2025-02-05","immagine":"Screenshot 2024-12-25 133356.png","status":null}]

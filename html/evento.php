@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -26,6 +26,11 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
+                                <?php if(isset($_SESSION['id_account'])): ?>
+                                        <li class="nav-item">
+                                            <a href="utente/" aria-label="Toggle navigation">DASHBOARD</a>
+                                        </li>
+                                <?php else : ?>
                                     <li class="nav-item">
                                         <a href="index" aria-label="Toggle navigation">HOME PAGE</a>
                                     </li>
@@ -36,6 +41,8 @@
                                     <li class="nav-item">
                                         <a href="login/registrati" aria-label="Toggle navigation">REGISTRATI</a>
                                     </li>
+                                <?php endif; ?>
+                                   
                                    
                                 </ul>
                             </div> <!-- navbar collapse -
@@ -68,7 +75,11 @@
                         <!--<div class="button wow fadeInUp" data-wow-delay=".8s">
                             <a href="pricing.html" class="btn ">Hashtag @</a>
                         </div>  -->
-
+                        <?php if(isset($_SESSION["id_account"])):?>
+                        <div class="button">
+                                <a href="utente/" class="btn"><i class="lni lni-user"></i> Utente : <?= htmlspecialchars($_SESSION["nome_utente"]); ?></a>
+                            </div> <br>
+                         <?php endif; ?>
                         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="hero-content">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="@hashtag..."
@@ -169,14 +180,14 @@ function getAllArticles() {
                         <!-- Start Single Feature -->
                         <div class="single-featuer">
                             <div class="action-box">
-                                <img style="border-radius: 15px;" src="img/${article.image}" alt="">
+                                <img style="border-radius: 15px;" src="img/${article.immagine}" alt="">
                             </div> <br>
                             <img class="shape" src="assets/images/features/shape.svg" alt="#">
                             <img class="shape2" src="assets/images/features/shape2.svg" alt="#">
                            
                             <h3>${article.titolo}</h3> 
                              <span class="serial">${index + 1}</span>
-                            <div class="btn btn-success">${article.data_creazione}</div> <br> <br>
+                            <div class="btn btn-success">${article.data_svolgimento}</div> <br> <br>
                             <div class="hero-content"> <h5><i class="lni lni-map-marker"></i> ${article.luogo_svolgimento} </h5>  <br>
                             </div>
                             <p>${article.descrizione}</p> <br>
