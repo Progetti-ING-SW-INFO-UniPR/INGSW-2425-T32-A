@@ -25,14 +25,14 @@
 <li class="nav-item">
     <a class="nav-link" href="../evento">
         <i class="fas fa-fw fa-bookmark"></i>
-        <span>Visualizza eventi</span></a>
+        <span>Visualizza tutti gli eventi</span></a>
 </li>
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
     <a class="nav-link" href="evento">
         <i class="fas fa-fw fa-bookmark"></i>
-        <span>Eventi inseriti</span></a>
+        <span>Visualizza eventi inseriti</span></a>
 </li>
 
 

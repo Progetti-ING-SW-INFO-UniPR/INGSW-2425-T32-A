@@ -82,10 +82,9 @@
                          <?php endif; ?>
                         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="hero-content">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="@hashtag..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button"> 
+                            <div class="input-group search-bar">
+                                <input type="text" class="form-control" placeholder="@hashtag..." aria-label="Search">
+                                <button class="btn btn-primary search-btn" type="button">
                                     <i class="lni lni-search"></i>
                                 </button>
                             </div>
@@ -107,12 +106,10 @@
                     <div class="box-head">
                         <div class="box-content">
                             <div class="box">
-                                <h1 id="days">12</h1>
                                 <h2 id="daystxt">Eventi disponibili</h2>
                             </div>
                             <div class="box">
                                 <h1 id="hours">24</h1>
-                                <h2 id="hourstxt">Eventi passati</h2>
                             </div>
                             
                         </div>
@@ -124,18 +121,17 @@
     <!-- End Count Down Area -->
 
     <!-- Start Features Area -->
-    <section class="features section" style="background-image: url(img/bg.jpg); background-attachment: fixed;">
+    <section class="features section" >
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h3 style="color:white" class="wow zoomIn" data-wow-delay=".2s">Visualizza eventi</h3>
+                        <h3 class="wow zoomIn" data-wow-delay=".2s">Visualizza eventi</h3>
                       
                     </div>
                 </div>
             </div>
             <div class="row" id="getEvent"></div>
-            <div class="row">
                             <div id="event-detail-container" style="display: none;">
                                  <div class="event-detail">
                             <img id="event-detail-image" src="" alt="Event Image">
@@ -145,7 +141,7 @@
                         <button class="btn btn-primary">S'inscrire</button>
                         <button class="btn btn-danger" id="btn-retour">Fermer</button>
                     </div>
-                </div>
+                
 
             </div>
         </div>
@@ -174,39 +170,35 @@ function getAllArticles() {
             const container = document.getElementById("getEvent");
             container.innerHTML = ""; // Efface les anciens articles
 
-            articles.forEach((article, index) => {
+            articles.forEach(article => {
                 const articleHTML = `
-                    <div class="col-lg-4 col-md-6 col-12 wow">
-                        <!-- Start Single Feature -->
-                        <div class="single-featuer">
-                            <div class="action-box">
-                                <img style="border-radius: 15px;" src="img/${article.immagine}" alt="">
-                            </div> <br>
-                            <img class="shape" src="assets/images/features/shape.svg" alt="#">
-                            <img class="shape2" src="assets/images/features/shape2.svg" alt="#">
-                           
-                            <h3>${article.titolo}</h3> 
-                             <span class="serial">${index + 1}</span>
-                            <div class="btn btn-success">${article.data_svolgimento}</div> <br> <br>
-                            <div class="hero-content"> <h5><i class="lni lni-map-marker"></i> ${article.luogo_svolgimento} </h5>  <br>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="img/${article.immagine}" alt="${article.titolo}">
                             </div>
-                            <p>${article.descrizione}</p> <br>
-                            <div class="service-icon">
-                                <i class="lni lni-users"> <br> 2 </i> 
+                            <div class="event-body">
+                                <h3 class="event-title">${article.titolo}</h3>
+                                <div class="event-meta">
+                                    <span><i class="lni lni-user"></i> ${article.autore}</span>
+                                    <span><i class="lni lni-map-marker"></i> ${article.luogo_svolgimento}</span>
+                                    <span><i class="lni lni-calendar"></i> ${article.data_svolgimento}</span>
+                                    <span class="event-hashtag">#${article.hashtag}</span>
+                                </div>
+                                <p class="event-description">${article.descrizione.substring(0, 100)}...</p>
+                                <div class="event-footer">
+                                    <button class="btn btn-primary btn-iscriversi" data-id="${article.id_evento}">S'inscrire</button>
+                                </div>
                             </div>
-                          
-                            <div style="float:right" data-id="${article.id_evento}" class="btn btn-primary btn-iscriversi">Iscriversi</div>
                         </div>
-                        <!-- End Single Feature -->
                     </div>
                 `;
-
-                // Ajouter le HTML généré dans le container
                 container.innerHTML += articleHTML;
             });
         })
         .catch(error => console.error("Erreur:", error));
 }
+
     getAllArticles();
 
    setInterval(getAllArticles, 5000);
@@ -215,14 +207,23 @@ function getAllArticles() {
         function showEventDetails(eventId) {
             fetch(`/api/evento/${eventId}`) // Récupère les détails de l'événement via l'API
                 .then(response => response.json())
-                .then(event => {
-                    console.log(event);
-                    // Met à jour la zone de détails avec les infos de l'événement
-                    document.getElementById("event-detail-title").textContent = event.titolo;
-                    document.getElementById("event-detail-date").textContent = event.data_creazione;
-                    document.getElementById("event-detail-description").textContent = event.descrizione;
-                    document.getElementById("event-detail-image").src = "img/"+event.image || img/event1.jpg;
+                .then(data => {
+                
+                    if (Array.isArray(data) && data.length > 0) {
+                        let event = data[0];  // On prend le premier élément du tableau
+                        console.log(event);
 
+                        document.getElementById("event-detail-title").textContent = event.titolo ?? "";
+                        document.getElementById("luogo").textContent = event.luogo_svolgimento ?? "";
+                        document.getElementById("event-detail-date").textContent = event.data_svolgimento ?? "";
+                        document.getElementById("event-detail-description").textContent = event.descrizione ?? "";
+                        document.getElementById("event-detail-image").src = "img/"+event.image || img/event1.jpg;
+                } else {
+                    console.error("Erreur : L'API ne retourne pas de données valides");
+                    alert("Aucun événement trouvé !");
+                    window.location.href = "index";
+                }
+                  
                     // Affiche la section des détails
                     document.getElementById("event-detail-container").style.display = "block";
                 })

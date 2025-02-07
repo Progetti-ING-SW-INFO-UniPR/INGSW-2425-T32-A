@@ -16,10 +16,9 @@ class Presenter {
     public function handleRequest($method, $data,$id) {
         switch ($method) {
             case 'GET':
-        
                 if($id != NULL){
                     $articles=$this->model->getEventiById($id);
-                    $this->view->response($articles);
+                    echo json_encode($articles);
                 }else{
                     $articles = $this->model->getEventi();
                     $this->view->response($articles);
@@ -100,11 +99,12 @@ function richiesta($method,$data,$database) {
             } 
 
             break;
+
         case "GET":
             if(isset($data["id_account"]) && $data["action"]=="getEvent"){
                 $articles=getEventiByUser($data["id_account"],$database);
                 if (!$articles) {
-                    echo json_encode(["success" => false, "message" => "Aucun événement trouvé"]);
+                    echo json_encode(["success" => false, "message" => "Nessun elemento trovato"]);
                 } else {
                     echo json_encode(["success" => true, "eventi" => $articles]);
                 }

@@ -42,19 +42,17 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800" style="text-align:center";>Rimuovere un evento</h1>
-                    <p class="mb-4" style="text-align: center";>Per effettuare l'operazione, deve scegliere l'evento per quale desidera eseguire la rimozione.</p>
+                    <h1 class="h3 mb-2 text-gray-800" style="text-align:center";>Modificare un evento</h1>
+                    <p class="mb-4" style="text-align: center";>Per effettuare l'operazione, deve scegliere l'evento per quale desidera eseguire la modifica.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Lista di eventi creati da Lei</h6>
-                        </div>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered"  width="100%" cellspacing="0">
                                     <thead>
-                                        <tr>
+                                        <tr style="background-color:chartreuse;color:black">
                                             <th>Immagine</th>
                                             <th>Titolo</th>
                                             <th>Descrizione</th>
@@ -137,7 +135,7 @@ function getAllArticles() {
                                             <td>${article.data_svolgimento}</td>
                                             <td>${article.data_creazione}</td>
                                             <td><div class="card-body">
-                                    <a href="modifica_evento/${article.id_evento}" data-id="${article.id_evento}"  class="btn btn-success btn-circle">
+                                    <a href="modifica_evento?id=${article.id_evento}" data-id="${article.id_evento}"  class="btn btn-success btn-circle">
                                         <i class="fas fa-wrench"></i>
                                     </a></div></td>
                                         </tr>

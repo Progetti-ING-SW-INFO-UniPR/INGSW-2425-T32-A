@@ -28,7 +28,7 @@ class model{
     public function getEventiByUser($id) {
         $res=$this->pdo->prepare("SELECT * FROM eventi WHERE autore=?");
         $res->execute([$id]);
-        $result=$res->fetchAll(PDO::FETCH_ASSOC);
+        $result=$res->fetch(PDO::FETCH_ASSOC);
         
         return $result;
     }

@@ -13,13 +13,11 @@ require_once "presenter.php";
 
 $resultat=new presenter($db);
 
-
 $method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents("php://input"),true);
 
 $request_uri = explode("/", $_SERVER["REQUEST_URI"]); 
 $id = isset($request_uri[3]) ? intval($request_uri[3]) : NULL;
-
 
 if($request_uri[2]=="evento"){
     if($_FILES["image"]["name"]!=NULL){
@@ -40,6 +38,7 @@ if($request_uri[2]=="evento"){
         "descrizione" => $_POST['descrizione'] ?? null,
         "immagine" => $file_name 
     ];
+
     $resultat->handleRequest($method,$data,$id);
 }
 
@@ -47,9 +46,9 @@ if($request_uri[2]=="utente"){
     richiesta($method,$data,$db);
 }
 
-$data=["action" => "getEvent",
-    "id_account"=>$_SESSION['id_account']];
-
 if($request_uri[2]=="backend"){
+    $data=["action" => "getEvent",
+    "id_account"=>$_SESSION['id_account']];
+    
     richiesta($method,$data,$db)  ;  
 }
