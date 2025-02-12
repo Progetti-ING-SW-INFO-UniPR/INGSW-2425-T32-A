@@ -53,28 +53,6 @@
 
        <?php include "inc/menu.php"; ?>
 
-                <!-- Begin Page Content 
-                <div class="container-fluid">
-
-                   <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                src="img/undraw_posting_photo.svg" alt="...">
-                        </div>
-                        <p>Add some quality, svg illustrations to your project courtesy of <a
-                                target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                            constantly updated collection of beautiful svg images that you can use
-                            completely free and without attribution!</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                            unDraw &rarr;</a>
-                    </div>
-                </div> -->
-
-
 <div class="form-container">
     <h3 class="text-center mb-4">Inserire un evento</h3>
     <form id="articleForm" enctype="multipart/form-data">
@@ -103,7 +81,7 @@
 
         <div class="mb-3">
             <label for="image" class="form-label">Immagine</label>
-            <input type="file" class="form-control" id="image" accept="image/*" required>
+            <input type="file" class="form-control" id="image" accept="image/*">
         </div>
         <button type="submit" class="btn btn-primary w-100">Publiccare</button>
     </form>
@@ -171,6 +149,8 @@
     formData.append("hashtag", document.getElementById("hashtag").value);
     formData.append("datetime", document.getElementById("datetime").value);
     formData.append("descrizione", document.getElementById("descrizione").value);
+    formData.append("hashtag", document.getElementById("hashtag").value);
+
     
     let imageInput = document.getElementById("image");
     if (imageInput.files.length > 0) {

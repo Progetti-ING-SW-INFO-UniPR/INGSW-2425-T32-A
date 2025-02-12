@@ -80,16 +80,13 @@
                                 <a href="utente/" class="btn"><i class="lni lni-user"></i> Utente : <?= htmlspecialchars($_SESSION["nome_utente"]); ?></a>
                             </div> <br>
                          <?php endif; ?>
-                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="hero-content">
-                            <div class="input-group search-bar">
-                                <input type="text" class="form-control" placeholder="@hashtag..." aria-label="Search">
-                                <button class="btn btn-primary search-btn" type="button">
-                                    <i class="lni lni-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                         <form id="searchForm" class="d-flex align-items-center">
+                            <input type="text" id="searchInput" class="form-control me-2" placeholder="@hashtag..." aria-label="Search">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="lni lni-search"></i>
+                            </button>
+                        </form>
+
 
                     </div>
                 </div>
@@ -109,7 +106,7 @@
                                 <h2 id="daystxt">Eventi disponibili</h2>
                             </div>
                             <div class="box">
-                                <h1 id="hours">24</h1>
+                                <h1 id="hours"></h1>
                             </div>
                             
                         </div>
@@ -132,17 +129,6 @@
                 </div>
             </div>
             <div class="row" id="getEvent"></div>
-                            <div id="event-detail-container" style="display: none;">
-                                 <div class="event-detail">
-                            <img id="event-detail-image" src="" alt="Event Image">
-                        <h2 id="event-detail-title"></h2>
-                        <div class="btn btn-success" id="event-detail-date"></div>
-                        <p id="event-detail-description"></p>
-                        <button class="btn btn-primary">S'inscrire</button>
-                        <button class="btn btn-danger" id="btn-retour">Fermer</button>
-                    </div>
-                
-
             </div>
         </div>
     </section>
@@ -168,7 +154,10 @@ function getAllArticles() {
         .then(response => response.json())
         .then(articles => {
             const container = document.getElementById("getEvent");
-            container.innerHTML = ""; // Efface les anciens articles
+            container.innerHTML = ""; 
+
+            let numero=articles[0];
+            document.getElementById("hours").textContent=numero.totale;
 
             articles.forEach(article => {
                 const articleHTML = `
@@ -180,14 +169,15 @@ function getAllArticles() {
                             <div class="event-body">
                                 <h3 class="event-title">${article.titolo}</h3>
                                 <div class="event-meta">
-                                    <span><i class="lni lni-user"></i> ${article.autore}</span>
+                                    <span><i class="lni lni-user"></i> ${article.nome_utente} | ${article.tipologia} </span>
                                     <span><i class="lni lni-map-marker"></i> ${article.luogo_svolgimento}</span>
                                     <span><i class="lni lni-calendar"></i> ${article.data_svolgimento}</span>
                                     <span class="event-hashtag">#${article.hashtag}</span>
                                 </div>
                                 <p class="event-description">${article.descrizione.substring(0, 100)}...</p>
+                                
                                 <div class="event-footer">
-                                    <button class="btn btn-primary btn-iscriversi" data-id="${article.id_evento}">S'inscrire</button>
+                                   <a href="show_evento?id=${article.id_evento}"> <button class="btn btn-primary btn-iscriversi" data-id="${article.id_evento}"> Iscriversi</button></a>
                                 </div>
                             </div>
                         </div>
@@ -230,22 +220,60 @@ function getAllArticles() {
                 .catch(error => console.error("Erreur:", error));
         }
 
-            // Ajoute un événement "click" sur tous les boutons "Iscriversi"
-        document.addEventListener("click", function (event) {
-            if (event.target.classList.contains("btn-iscriversi")) {
-                let eventId = event.target.getAttribute("data-id");
-                showEventDetails(eventId);
-                document.getElementById("getEvent").style.display="none";
-            }
-        });
-
-        document.getElementById("btn-retour").addEventListener("click", function () {
-            document.getElementById("event-detail-container").style.display = "none"; // Cache les détails
-            document.getElementById("getEvent").style.display = "block"; // Réaffiche la liste des articles
-        });
-
-
 </script>
+
+<script>
+document.getElementById("searchForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // Empêche le rechargement de la page
+
+    let hashtag = document.getElementById("searchInput").value.trim();
+
+    if (hashtag === "") {
+        alert("Deve inserire una parola !");
+        return;
+    }
+
+    fetch(`api/evento?hashtag=${encodeURIComponent(hashtag)}`)
+        .then(response => response.json())
+        .then(events => {
+            const container = document.getElementById("getEvent");
+            container.innerHTML = ""; // Vide l'affichage précédent
+
+            if (events.length === 0) {
+                container.innerHTML = "<p>Nessun elemento trovato.</p>";
+                return;
+            }
+
+            events.forEach(event => {
+                const eventHTML = `
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="img/${event.immagine}" alt="${event.titolo}">
+                            </div>
+                            <div class="event-body">
+                                <h3 class="event-title">${event.titolo}</h3>
+                                <div class="event-meta">
+                                    <span><i class="lni lni-user"></i> ${event.nome_utente}</span>
+                                    <span><i class="lni lni-map-marker"></i> ${event.luogo_svolgimento}</span>
+                                    <span><i class="lni lni-calendar"></i> ${event.data_svolgimento}</span>
+                                    <span class="event-hashtag">#${event.hashtag}</span>
+                                </div>
+                                <p class="event-description">${event.descrizione.substring(0, 100)}...</p>
+                                <div class="event-footer">
+                                    <button class="btn btn-primary btn-iscriversi" data-id="${event.id_evento}">Iscriversi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += eventHTML;
+            });
+        })
+        .catch(error => console.error("Erreur:", error));
+});
+</script>
+
 
 </body>
 

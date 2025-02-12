@@ -17,7 +17,8 @@
 		<div class="container">
 			 <div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">EventApp</h2>
+					<h2 class="heading-section">EventApp 		
+					</h2>
 				</div>
 			</div> 
 
@@ -92,8 +93,13 @@
         const result = await response.json();
 
         if (result.success) {
-            alert("Bravissimo ! Verrai reindirizzato verso il dashboard.");
-            window.location.href = "../utente/"; 
+			<?php if(!isset($_GET['id'])) : ?>
+				alert("Bravissimo ! Verrai reindirizzato verso il dashboard.");
+				window.location.href = "../utente/"; 
+			<?php else: ?>
+				alert("Bravissimo ! Puo procedere all'iscrizione all'evento desiderato !");
+            	window.location.href = "../show_evento?id=<?= $_GET['id']; ?>"
+			<?php endif; ?>
         } else {
             alert("Errore : " + result.message);
         }

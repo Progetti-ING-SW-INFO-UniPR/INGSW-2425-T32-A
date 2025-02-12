@@ -13,14 +13,14 @@ class model{
 
 
     public function getEventi() {
-        $res=$this->pdo->query("SELECT * FROM eventi");
+        $res=$this->pdo->query("SELECT *, (SELECT COUNT(*) FROM eventi) AS totale FROM eventi JOIN account WHERE autore=id_account;");
         $result=$res->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function getEventiById($id) {
-        $res=$this->pdo->prepare("SELECT * FROM eventi WHERE id_evento=$id");
-        $res->execute();
+        $res=$this->pdo->prepare("SELECT * FROM eventi JOIN account WHERE autore=id_account AND id_evento=?;");
+        $res->execute([$id]);
         $result=$res->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -28,7 +28,7 @@ class model{
     public function getEventiByUser($id) {
         $res=$this->pdo->prepare("SELECT * FROM eventi WHERE autore=?");
         $res->execute([$id]);
-        $result=$res->fetch(PDO::FETCH_ASSOC);
+        $result=$res->fetchAll(PDO::FETCH_ASSOC);
         
         return $result;
     }
@@ -51,7 +51,7 @@ class model{
 
     function inserimento_evento($data) {
     
-        $req = $this->pdo->prepare("INSERT INTO eventi SET titolo=?, descrizione=?, luogo_svolgimento=?, data_svolgimento=?, immagine=?, autore=?,data_creazione=NOW()");
+        $req = $this->pdo->prepare("INSERT INTO eventi SET titolo=?, descrizione=?, luogo_svolgimento=?, data_svolgimento=?, immagine=?, autore=?, hashtag=?, data_creazione=NOW()");
         
         $success =  $req->execute([
             $data["titolo"], 
@@ -59,7 +59,8 @@ class model{
             $data["luogo"],
             $data["datetime"],
             $data["immagine"],
-            $data["autore"]
+            $data["autore"],
+            $data["hashtag"]
         ]);
     
         return $success;
@@ -108,4 +109,24 @@ function getEventiByUser($id,$db) {
     $result=$res->fetchAll(PDO::FETCH_ASSOC);
     
     return $result;
+}
+
+function iscrizione($data,$db){
+    $res=$db->prepare("SELECT COUNT(*) as totale FROM iscrizione WHERE evento=? AND account=?");
+    $res->execute([$data["id_evento"],$data["id_account"]]);
+    $success=$res->fetch(PDO::FETCH_ASSOC);
+
+    if($success["totale"]==0){
+        $req = $db->prepare("INSERT INTO iscrizione SET evento=?, account=?, data_iscrizione=NOW(), status=1");
+        
+        $result =  $req->execute([
+            $data["id_evento"], 
+            $data["id_account"]
+        ]);
+
+        return $result;
+    }else{
+        return false;
+    }
+
 }

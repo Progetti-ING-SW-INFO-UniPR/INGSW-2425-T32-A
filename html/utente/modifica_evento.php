@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("luogo").value = event.luogo_svolgimento ?? "";
             document.getElementById("datetime").value = event.data_svolgimento ?? "";
             document.getElementById("descrizione").value = event.descrizione ?? "";
+            document.getElementById("hashtag").value = event.hashtag ?? "";
             tinymce.get("descrizione").setContent(event.descrizione ?? "");
         } else {
             console.error("Erreur : L'API ne retourne pas de données valides");

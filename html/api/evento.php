@@ -7,7 +7,6 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json; charset=UTF-8"); 
-ob_clean(); 
 
 require_once "presenter.php";
 
@@ -26,7 +25,7 @@ if($request_uri[2]=="evento"){
         $target_file = $target_dir . $file_name;
         move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
     }else{
-        $file_name="default";
+        $file_name="default.jpg";
     }
        
     $data = [
@@ -36,6 +35,7 @@ if($request_uri[2]=="evento"){
         "datetime" => $_POST['datetime'] ?? null,
         "autore" => $_SESSION['id_account'] ?? null,
         "descrizione" => $_POST['descrizione'] ?? null,
+        "hashtag" => $_POST['hashtag'] ?? null,
         "immagine" => $file_name 
     ];
 
@@ -45,6 +45,11 @@ if($request_uri[2]=="evento"){
 if($request_uri[2]=="utente"){
     richiesta($method,$data,$db);
 }
+
+if($request_uri[2]=="iscrizione"){
+    richiesta($method,$data,$db);
+}
+
 
 if($request_uri[2]=="backend"){
     $data=["action" => "getEvent",

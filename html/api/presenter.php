@@ -96,7 +96,14 @@ function richiesta($method,$data,$database) {
                      echo json_encode(["success" => true, "message" => "I dati sono stati inseriti correttamento, verrai reindirizzato nella pagina di login..."]);
                 else   
                      echo json_encode(["success" => false, "message" => "Errore !"]);
-            } 
+            } elseif(isset($data["action"]) && $data["action"]=="iscrizione"){
+                if(iscrizione($data,$database)){
+                    echo json_encode(["success" => true, "message" => "L'iscrizione è avvenuta con successo !"]);
+                }
+                else{
+                    echo json_encode(["success" => false, "message" => "L'iscrizione risulta già fatta per questo evento ! Si prega di scegliere un altro evento."]);
+                }
+            }
 
             break;
 
