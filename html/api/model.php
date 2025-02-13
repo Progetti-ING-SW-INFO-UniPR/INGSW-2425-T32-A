@@ -130,3 +130,32 @@ function iscrizione($data,$db){
     }
 
 }
+
+
+function iscrizione_esterno($data, $db) {
+    $res=$db->prepare("SELECT COUNT(*) as totale FROM iscrizione WHERE evento=? AND account=?");
+    $res->execute([$data["evento"],$data["indirizzo_mail"]]);
+    $success=$res->fetch(PDO::FETCH_ASSOC);
+
+
+    if($success["totale"]==0){
+        $req = $db->prepare("INSERT INTO iscrizione SET evento=?, account=?, data_iscrizione=NOW(), status=1");
+        
+        $result =  $req->execute([
+            $data["evento"], 
+            $data["indirizzo_mail"]
+        ]);
+
+        return $result;
+    }else{
+        return false;
+    }
+}
+
+function getEventByHashtag($hashtag,$db){
+    $res=$db->prepare("SELECT * FROM eventi WHERE hashtag LIKE ?");
+    $res->execute(["%".$hashtag."%"]);
+    $result=$res->fetchAll(PDO::FETCH_ASSOC);
+
+    return $result;
+}

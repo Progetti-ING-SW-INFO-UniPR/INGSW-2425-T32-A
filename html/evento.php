@@ -148,8 +148,12 @@
     <script src="assets/js/count-up.min.js"></script>
     <script src="assets/js/main.js"></script>
 
-<script>
+<script> 
+let isSearching = false; // Variable pour savoir si on est en recherche
+
 function getAllArticles() {
+    if(isSearching) return;
+
     fetch('api/evento')
         .then(response => response.json())
         .then(articles => {
@@ -193,32 +197,6 @@ function getAllArticles() {
 
    setInterval(getAllArticles, 5000);
 
-   // Fonction pour afficher les détails de l'événement
-        function showEventDetails(eventId) {
-            fetch(`/api/evento/${eventId}`) // Récupère les détails de l'événement via l'API
-                .then(response => response.json())
-                .then(data => {
-                
-                    if (Array.isArray(data) && data.length > 0) {
-                        let event = data[0];  // On prend le premier élément du tableau
-                        console.log(event);
-
-                        document.getElementById("event-detail-title").textContent = event.titolo ?? "";
-                        document.getElementById("luogo").textContent = event.luogo_svolgimento ?? "";
-                        document.getElementById("event-detail-date").textContent = event.data_svolgimento ?? "";
-                        document.getElementById("event-detail-description").textContent = event.descrizione ?? "";
-                        document.getElementById("event-detail-image").src = "img/"+event.image || img/event1.jpg;
-                } else {
-                    console.error("Erreur : L'API ne retourne pas de données valides");
-                    alert("Aucun événement trouvé !");
-                    window.location.href = "index";
-                }
-                  
-                    // Affiche la section des détails
-                    document.getElementById("event-detail-container").style.display = "block";
-                })
-                .catch(error => console.error("Erreur:", error));
-        }
 
 </script>
 
@@ -233,9 +211,10 @@ document.getElementById("searchForm").addEventListener("submit", function (e) {
         return;
     }
 
-    fetch(`api/evento?hashtag=${encodeURIComponent(hashtag)}`)
+    fetch(`api/backend/${encodeURIComponent(hashtag)}`)
         .then(response => response.json())
         .then(events => {
+            console.log(events);
             const container = document.getElementById("getEvent");
             container.innerHTML = ""; // Vide l'affichage précédent
 

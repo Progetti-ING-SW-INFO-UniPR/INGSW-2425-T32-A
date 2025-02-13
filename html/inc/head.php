@@ -197,12 +197,12 @@
 }
 
 .btn-option:first-child {
-    background-color: red;
+    background-color: green;
     color: white;
 }
 
 .btn-option:last-child {
-    background-color: green;
+    background-color: red;
     color: white;
 }
 

@@ -17,6 +17,7 @@ $data = json_decode(file_get_contents("php://input"),true);
 
 $request_uri = explode("/", $_SERVER["REQUEST_URI"]); 
 $id = isset($request_uri[3]) ? intval($request_uri[3]) : NULL;
+$hashtag = isset($request_uri[3]) ? trim($request_uri[3]) : "";
 
 if($request_uri[2]=="evento"){
     if($_FILES["image"]["name"]!=NULL){
@@ -43,17 +44,18 @@ if($request_uri[2]=="evento"){
 }
 
 if($request_uri[2]=="utente"){
-    richiesta($method,$data,$db);
+    richiesta($method,$data,$db,$hashtag);
 }
 
 if($request_uri[2]=="iscrizione"){
-    richiesta($method,$data,$db);
+    richiesta($method,$data,$db,$hashtag);
 }
 
+//file_put_contents("log.txt", json_encode($hashtag) . PHP_EOL, FILE_APPEND);
 
 if($request_uri[2]=="backend"){
     $data=["action" => "getEvent",
     "id_account"=>$_SESSION['id_account']];
     
-    richiesta($method,$data,$db)  ;  
+    richiesta($method,$data,$db,$hashtag);  
 }

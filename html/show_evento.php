@@ -102,22 +102,22 @@
                         </div>
 
                         
-    <!-- Fenêtre modale -->
-<div id="modal-inscription" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Come vuole iscriversi all'evento ?</h2>
-        <div class="modal-buttons">
-            <button id="btn-login" class="btn-option">Ricercatore/Altri enti</button>
-            <button id="btn-form" class="btn-option">Utente esterno</button>
-        </div>
-        <form id="form-inscription" class="hidden">
-            <input type="text" id="nom" name="nom" placeholder="Nome" required>
-            <input type="email" id="email" name="email" placeholder="Indirizzo mail" required>
-            <button type="submit" class="btn-submit">Iscriviti</button>
-        </form>
-    </div>
-</div>
+                            <!-- Fenêtre modale -->
+                        <div id="modal-inscription" class="modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <h2>Come vuole iscriversi all'evento ?</h2>
+                                <div class="modal-buttons">
+                                    <button id="btn-login" class="btn-option">Ricercatore/Altri enti</button>
+                                    <button id="btn-form" class="btn-option">Utente esterno</button>
+                                </div>
+                                <form id="form-inscription" class="hidden">
+                                    <input type="text" id="nom" name="nom" placeholder="Nome" required>
+                                    <input type="email" id="email" name="email" placeholder="Indirizzo mail" required>
+                                    <button type="submit" class="btn-submit">Iscriviti</button>
+                                </form>
+                            </div>
+                        </div>
 
                         </div>
                     </div>
@@ -222,22 +222,23 @@
                 const nom = document.getElementById("nom").value;
                 const email = document.getElementById("email").value;
 
-                fetch("../api/evento", {
+                fetch("../api/iscrizione", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ nome: nom, email: email, eventId: eventId })
+                    body: JSON.stringify({ action:"iscrizione_utente_esterno", nome_utente: nom, indirizzo_mail: email, evento: eventId })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert("Inscription réussie !");
+                        alert("L'iscrizione è avvenuta con successo !");
                         modal.style.display = "none";
                         formInscription.reset();
+                        window.location.href="evento";
                     } else {
-                        alert("Erreur: " + data.message);
+                        alert("Errore: " + data.message);
                     }
                 })
-                .catch(error => console.error("Erreur:", error));
+                .catch(error => console.error("Errore:", error));
             });
         });
 

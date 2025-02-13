@@ -71,26 +71,16 @@ class Presenter {
 
 
 
-function richiesta($method,$data,$database) {
+function richiesta($method,$data,$database,$hashtag) {
+
     switch ($method) {
         case "POST":
             if (isset($data["action"]) && $data["action"] == "login") {
                 if(login($data,$database)==false){
                     echo json_encode(["success" => false, "message" => "I dati non sono corretti !"]);
                 } else{
-                    $user=login($data,$database);
-                    echo json_encode([
-                        "success" => true,
-                        "message" => "Connessione stabilita !",
-                        "user" => [
-                            "id" => $user["id_account"],
-                            "nome_utente" => $user["nome_utente"],
-                            "indirizzo_mail" => $user["indirizzo_mail"],
-                            "tipologia" => $user["tipologia"]
-                        ]
-                    ]);
-                }
-               
+                    echo json_encode(["success" => true, "message" => "Connessione stabilita !"]);
+                }  
             } elseif (isset($data["action"]) && $data["action"] == "register") {
                if(registra_account($data,$database))
                      echo json_encode(["success" => true, "message" => "I dati sono stati inseriti correttamento, verrai reindirizzato nella pagina di login..."]);
@@ -103,19 +93,35 @@ function richiesta($method,$data,$database) {
                 else{
                     echo json_encode(["success" => false, "message" => "L'iscrizione risulta già fatta per questo evento ! Si prega di scegliere un altro evento."]);
                 }
+            }elseif(isset($data["action"]) && $data["action"]=="iscrizione_utente_esterno"){
+                if(iscrizione_esterno($data,$database)){
+                    echo json_encode(["success" => true, "message" => "L'iscrizione è avvenuta con successo !"]);
+                }else{
+                    echo json_encode(["success" => false, "message" => "L'iscrizione risulta già fatta per questo evento ! Si prega di scegliere un altro evento."]);
+                }
             }
 
             break;
 
         case "GET":
-            if(isset($data["id_account"]) && $data["action"]=="getEvent"){
+            if(isset($data["id_account"]) && $data["action"]=="getEvent" && !isset($hashtag)){
                 $articles=getEventiByUser($data["id_account"],$database);
                 if (!$articles) {
                     echo json_encode(["success" => false, "message" => "Nessun elemento trovato"]);
                 } else {
                     echo json_encode(["success" => true, "eventi" => $articles]);
                 }
-                exit;
+            }
+
+            if(isset($hashtag)){
+                file_put_contents("log.txt", json_encode($method) . PHP_EOL, FILE_APPEND);
+
+                $eventi=getEventByHashtag($hashtag,$database);
+                 if($eventi){
+                    echo json_encode($eventi);
+                 }else{
+                    echo json_encode(["success" => false, "message" => "Nessun elemento trovato"]);
+                 }   
             }
             break;
         case "DELETE":
