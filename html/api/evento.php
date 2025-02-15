@@ -28,6 +28,10 @@ if($request_uri[2]=="evento"){
     }else{
         $file_name="default.jpg";
     }
+
+    if($_POST["_method"]=="PUT"){
+        $method="PUT";
+    }
        
     $data = [
         "titolo" => $_POST['title'] ?? null,
@@ -51,11 +55,38 @@ if($request_uri[2]=="iscrizione"){
     richiesta($method,$data,$db,$hashtag);
 }
 
-//file_put_contents("log.txt", json_encode($hashtag) . PHP_EOL, FILE_APPEND);
-
 if($request_uri[2]=="backend"){
-    $data=["action" => "getEvent",
-    "id_account"=>$_SESSION['id_account']];
+        $data=["action" => "getEvent",
+        "id_account"=>$_SESSION['id_account']];
     
     richiesta($method,$data,$db,$hashtag);  
+}
+
+if($request_uri[2]=="hashtag"){
+    richiesta($method,$data,$db,$hashtag);  
+}
+
+if($_GET["action"]=="eventi_iscritti"){
+    $data=["action" => "eventi_iscritti",
+    "id_account"=>$_SESSION['id_account']];
+    richiesta($method,$data,$db,$hashtag);
+}
+
+if($request_uri[2]=="notifica"){
+    $data=["action" => "notifica","id_account"=>$_SESSION['id_account']];
+    richiesta($method,$data,$db,$id);
+}
+
+if($_GET["action"]=="delete_iscrizione"){
+    $data=["action"=>"delete_iscrizione","id_account"=>$_SESSION['id_account'], "id_evento"=> $_GET["id"]];
+    richiesta($method,$data,$db,NULL);
+}
+
+if($_GET["action"]=="rimozione_notifica"){
+    richiesta($method,$data,$db,NULL);
+}
+
+if($_GET["action"]=="statistiche"){
+    $data=["action"=>"statistiche","id_account"=>$_SESSION["id_account"]];
+    richiesta($method,$data,$db,NULL);
 }

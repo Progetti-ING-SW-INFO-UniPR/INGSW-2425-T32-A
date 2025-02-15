@@ -107,6 +107,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/notifica.js"></script>
 
     <script>
 function getAllArticles() {
@@ -143,35 +144,6 @@ function getAllArticles() {
     getAllArticles();
 
    setInterval(getAllArticles, 5000);
-
-   function cancellare_evento(element) {
-    let articleId = element.getAttribute("data-id"); 
-
-    if (!confirm(`Vuole veramente cancellare l'evento #${articleId} ?`)) {
-        return false; 
-    }
-
-    fetch(`../api/evento/${articleId}`, { 
-        method: 'DELETE',
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Errore durante la suppressione");
-        }
-        return response.json();
-    })
-    .then(data => {
-        alert(`Evento #${articleId} cancellato con successo !`);
-        
-        element.parentElement.remove(); 
-    })
-    .catch(error => {
-        alert("Erreur : " + error.message);
-    });
-
-    return false; 
-}
 
 
 </script>

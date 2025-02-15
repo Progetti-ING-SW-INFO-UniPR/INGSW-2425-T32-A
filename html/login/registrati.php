@@ -44,7 +44,7 @@
 						<label for="options">Tipologia di utente: </label>
 						<select id="tipologia" name="options">
 							<option value="Ricercatore">Ricercatore</option>
-							<option value="Altri_enti">Altri enti</option>
+							<option value="Altri enti">Altri enti</option>
 						</select>
 					</div>
 					<div class="form-group">

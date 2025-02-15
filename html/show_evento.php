@@ -14,8 +14,8 @@
                     <div class="nav-inner">
                         <!-- Start Navbar -->
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="index.html">
-                                <img src="assets/images/logo/logo.svg" alt="Logo">
+                            <a class="navbar-brand" href="evento">
+                                <img src="assets/images/logo/logo.png" alt="Logo">
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -141,6 +141,32 @@
     <script src="assets/js/glightbox.min.js"></script>
     <script src="assets/js/count-up.min.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get("action");
+    const eventId = urlParams.get("id");
+    const userId = <?php echo isset($_SESSION['id_account']) ? $_SESSION['id_account'] : 'null'; ?>;
+
+    if (action === "view" && eventId && userId) {
+        fetch("../api/backend?action=rimozione_notifica", {
+            method: "DELETE",
+            body: JSON.stringify({ action: "marcare_letto", id_account: userId, id_evento: eventId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Notification marquée comme lue !");
+            } else {
+                console.error("Erreur: " + data.message);
+            }
+        })
+        .catch(error => console.error("Erreur:", error));
+    }
+});
+
+    </script>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);

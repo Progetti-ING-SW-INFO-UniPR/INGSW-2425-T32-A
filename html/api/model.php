@@ -13,7 +13,7 @@ class model{
 
 
     public function getEventi() {
-        $res=$this->pdo->query("SELECT *, (SELECT COUNT(*) FROM eventi) AS totale FROM eventi JOIN account WHERE autore=id_account;");
+        $res=$this->pdo->query("SELECT *, (SELECT COUNT(*) FROM eventi) AS totale FROM eventi JOIN account WHERE autore=id_account ORDER BY data_creazione DESC");
         $result=$res->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -33,13 +33,36 @@ class model{
         return $result;
     }
 
-    public function updateArticle($id, $title, $body) {
-        $query = "UPDATE articles SET title = :title, body = :body WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":title", $title);
-        $stmt->bindParam(":body", $body);
-        return $stmt->execute();
+    public function aggiornamento_evento($id, $data) {
+        $req = $this->pdo->prepare("UPDATE eventi SET titolo=?, descrizione=?, luogo_svolgimento=?, data_svolgimento=?, immagine=?, hashtag=? WHERE id_evento=?");
+        
+        $success =  $req->execute([
+            $data["titolo"], 
+            $data["descrizione"], 
+            $data["luogo"],
+            $data["datetime"],
+            $data["immagine"],
+            $data["hashtag"],
+            $id
+        ]);
+     
+    if ($success) {
+        $sql = "SELECT account FROM iscrizione WHERE evento = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]); 
+        $utenti = $stmt->fetchAll(PDO::FETCH_COLUMN); 
+
+        $sqlInsert = "INSERT INTO notifica (utente, evento, descrizione, status, data_creazione) 
+        VALUES (?, ?, 'Un evento su cui è iscritto è stato aggiornato. Clicca per vederlo !', 1, NOW())";
+        $stmtInsert = $this->pdo->prepare($sqlInsert);
+
+        foreach ($utenti as $utente) {
+             $stmtInsert->execute([$utente, $id]); 
+        }
+
+    }
+    
+        return $success;
     }
 
     public function rimozione($id) {
@@ -158,4 +181,55 @@ function getEventByHashtag($hashtag,$db){
     $result=$res->fetchAll(PDO::FETCH_ASSOC);
 
     return $result;
+}
+
+
+function getNotifica($data,$db){
+    $res = $db->prepare("SELECT * 
+                           FROM notifica 
+                           WHERE utente = ? AND status=1
+                           ORDER BY data_creazione DESC");
+    $res->execute([$data['id_account']]);
+    $notifications = $res->fetchAll(PDO::FETCH_ASSOC);
+
+    return $notifications;
+}
+
+
+function getEventiIscritti($data,$db){
+    $res=$db->prepare("SELECT * FROM iscrizione JOIN eventi WHERE iscrizione.evento=eventi.id_evento AND iscrizione.account=?");
+    $res->execute([$data["id_account"]]);
+    $success=$res->fetchAll(PDO::FETCH_ASSOC);
+    return $success;
+}
+
+function deleteIscrizione($data,$db){
+    $res=$db->prepare("DELETE FROM iscrizione WHERE evento=? AND account=?");
+    $success=$res->execute([$data["id_evento"],$data["id_account"]]);
+    return $success;
+}
+
+function deleteNotifica($data,$db){
+    $res=$db->prepare("DELETE FROM notifica WHERE evento=? AND utente=?");
+    $success=$res->execute([$data["id_evento"],$data["id_account"]]);
+    return $success;
+}
+
+function getStatistiche($data,$db){
+    $res1=$db->prepare("SELECT COUNT(*) as eventi_disponibili FROM eventi");
+    $res1->execute();
+    $req1=$res1->fetchColumn();
+
+    $res2=$db->prepare("SELECT COUNT(*) AS eventi_inseriti FROM eventi WHERE autore=?");
+    $res2->execute([$data["id_account"]]);
+    $req2=$res2->fetchColumn();
+
+    $res3=$db->prepare("SELECT COUNT(*) AS eventi_iscritti FROM iscrizione WHERE account=?");
+    $res3->execute([$data["id_account"]]);
+    $req3=$res3->fetchColumn();
+
+    $dati=["eventi_disponibili"=>$req1,"eventi_inseriti"=>$req2,"eventi_iscritti"=>$req3];
+
+    return $dati;
+
 }

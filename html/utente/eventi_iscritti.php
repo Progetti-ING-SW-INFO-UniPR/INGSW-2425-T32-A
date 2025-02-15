@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Team PSJ">
+    <meta name="author" content="">
 
     <title>Contenitore di evento per i ricercatori</title>
 
@@ -21,8 +21,10 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -40,41 +42,43 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800" style="text-align:center";>Modificare un evento</h1>
-                    <p class="mb-4" style="text-align: center";>Per effettuare l'operazione, deve scegliere l'evento per quale desidera eseguire la modifica.</p>
+                    <h1 class="h3 mb-2 text-gray-800" style="text-align:center";>Eventi iscritti</h1>
+                    <p class="mb-4" style="text-align: center";>Ecco la lista di tutti gli eventi su cui è iscritto.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered"  width="100%" cellspacing="0">
                                     <thead>
-                                        <tr style="background-color:chartreuse;color:black">
+                                        <tr style="background-color:darkblue; color:white">
                                             <th>Immagine</th>
                                             <th>Titolo</th>
                                             <th>Descrizione</th>
-                                            <th>Luogo svolgimento</th>
-                                            <th>Data svolgimento</th>
-                                            <th>Data creazione</th>
-                                            <th>Azione</th>
-                                            
+                                            <th>Azione (cancellare iscrizione)</th>                                            
                                         </tr>
                                     </thead>
                                    
-                                    <tbody id="getEvent"> 
+                                    <tbody id="getEvent">
+                                       
                                         
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
+
+
+
         </div>
         <!-- End of Content Wrapper -->
+
     </div>
     <!-- End of Page Wrapper -->
 
@@ -101,8 +105,10 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    <script src="js/modifica.js"></script>
+
+    <script src="js/rimozione_iscrizione.js"></script>
     <script src="js/notifica.js"></script>
+
 </body>
 
 </html>

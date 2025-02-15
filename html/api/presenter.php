@@ -36,15 +36,10 @@ class Presenter {
                 break;
 
             case 'PUT':
-                if (!empty($data->id) && (!empty($data->title) || !empty($data->body))) {
-                    $success = $this->model->updateArticle($data->id, $data->title, $data->body);
-                    if ($success) {
-                        $this->view->response(["message" => "Article updated"]);
-                    } else {
-                        $this->view->error("Failed to update article.");
-                    }
-                } else {
-                    $this->view->error("Invalid data provided.");
+                if($this->model->aggiornamento_evento($id,$data)){
+                    echo json_encode(["success" => true, "message" => "L'evento è stato aggiornato con successo !"]);
+                }else{
+                    echo json_encode(["success" => false, "message" => "Errore durante l'aggiornamento dell'evento !"]);
                 }
                 break;
 
@@ -104,18 +99,35 @@ function richiesta($method,$data,$database,$hashtag) {
             break;
 
         case "GET":
-            if(isset($data["id_account"]) && $data["action"]=="getEvent" && !isset($hashtag)){
+            if(isset($data["id_account"]) && $data["action"]=="getEvent"){
                 $articles=getEventiByUser($data["id_account"],$database);
                 if (!$articles) {
                     echo json_encode(["success" => false, "message" => "Nessun elemento trovato"]);
                 } else {
                     echo json_encode(["success" => true, "eventi" => $articles]);
                 }
-            }
-
-            if(isset($hashtag)){
-                file_put_contents("log.txt", json_encode($method) . PHP_EOL, FILE_APPEND);
-
+            }elseif(isset($data["action"]) && $data["action"]=="notifica"){
+                $eventi=getNotifica($data,$database);
+                if($eventi){
+                    echo json_encode($eventi);
+                }else{
+                    echo json_encode(["success"=>false, "message"=>"Nessuna notifica"]);
+                }
+            }elseif(isset($data["id_account"]) && $data["action"]=="eventi_iscritti"){
+                $eventi=getEventiIscritti($data,$database);
+                if($eventi){
+                    echo json_encode($eventi);
+                }else{
+                    echo json_encode(["success"=>false, "message"=>"Nessuna notifica"]);
+                }
+            }elseif(isset($data["id_account"]) && $data["action"]=="statistiche"){
+                $eventi=getStatistiche($data,$database);
+                if($eventi){
+                    echo json_encode(["success"=>true, "eventi"=>$eventi]);
+                }else{
+                    echo json_encode(["success"=>false, "message"=>"Nessuna notifica"]);
+                }
+            }elseif(isset($hashtag)){
                 $eventi=getEventByHashtag($hashtag,$database);
                  if($eventi){
                     echo json_encode($eventi);
@@ -125,7 +137,18 @@ function richiesta($method,$data,$database,$hashtag) {
             }
             break;
         case "DELETE":
-            
+            if($data["action"]=="delete_iscrizione"){
+            if(deleteIscrizione($data,$database)){
+                echo json_encode(["success" => true, "message" => "L'iscrizione è stata cancellata con successo"]);
+            }else{
+                echo json_encode(["success" => false, "message" => "Errore durante la cancellazione"]);
+            } } else{
+                if(deleteNotifica($data,$database)){
+                    echo json_encode(["success" => true, "message" => "La notifica è stata cancellata con successo !"]);
+                }else{
+                    echo json_encode(["success" => false, "message" => "Errore durante la cancellazione"]);
+                }
+            }
             break;
         default:
             echo json_encode(["error" => "Metodo non supportato"]);

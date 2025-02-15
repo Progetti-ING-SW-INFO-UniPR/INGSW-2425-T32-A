@@ -1,12 +1,1 @@
-"GET"
-"educazi"
-"GET"
-"GET"
-"GET"
-"GET"
-"GET"
-"GET"
-"GET"
-"GET"
-"GET"
-"GET"
+{"action":"statistiche","id_account":"20"}

@@ -30,13 +30,13 @@
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
-    <a class="nav-link" href="evento">
+    <a class="nav-link" href="eventi_inseriti">
         <i class="fas fa-fw fa-bookmark"></i>
         <span>Visualizza eventi inseriti</span></a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="evento">
+    <a class="nav-link" href="eventi_iscritti">
         <i class="fas fa-fw fa-bookmark"></i>
         <span>Visualizza eventi iscritti</span></a>
 </li>
@@ -133,7 +133,7 @@
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Alerts -->
-                    <span class="badge badge-danger badge-counter">3+</span>
+                    <span class="badge badge-danger badge-counter"></span>
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -147,10 +147,7 @@
                                 <i class="fas fa fa-envelope-open"></i>
                             </div>
                         </div>
-                        <div>
-                            <div class="small text-gray-500">December 12, 2019</div>
-                            <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                        </div>
+                      
                     </a>
                     
                 </div>

@@ -3,7 +3,6 @@
     attivazione_sessione("nome_utente")
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,90 +26,64 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-
-    <style>
+<style>
         body {
             background-color: #f8f9fa;
         }
         .form-container {
-            max-width: 600px;
+            max-width: 400;
             margin: 50px auto;
             background: white;
             padding: 30px;
-            border-radius: 10px;
+            border-radius: 50px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-    </style>
+</style>
 
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-       <?php include "inc/menu.php"; ?>
+    <?php include "inc/menu.php"; ?>
 
-                <!-- Begin Page Content 
-                <div class="container-fluid">
-
-                   <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+            <div class="form-container">
+                <h3 class="text-center mb-4">Modificare l'evento <?= htmlspecialchars($_GET["id"]);?></h3>
+                <form id="articleForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="titre" class="form-label">Titolo</label>
+                        <input type="text" class="form-control" id="titolo" placeholder="Inserire il titolo" required>
                     </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                src="img/undraw_posting_photo.svg" alt="...">
-                        </div>
-                        <p>Add some quality, svg illustrations to your project courtesy of <a
-                                target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                            constantly updated collection of beautiful svg images that you can use
-                            completely free and without attribution!</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                            unDraw &rarr;</a>
+                    <div class="mb-3">
+                        <label for="titre" class="form-label">Luogo</label>
+                        <input type="text" class="form-control" id="luogo" placeholder="Inserire il luogo" required>
                     </div>
-                </div> -->
+                    <div class="mb-3">
+                <label for="datetime" class="form-label">Data e ora</label>
+                <input type="text" class="form-control" id="datetime" placeholder="Selezionare la data e l'ora">
+            </div>
 
+            <div class="mb-3">
+                        <label for="titre" class="form-label">Hashtag</label>
+                        <input type="text" class="form-control" id="hashtag" placeholder="Inserire l'hashtag corrispondente all'evento" required>
+                    </div>
 
-<div class="form-container">
-    <h3 class="text-center mb-4">Inserire un evento</h3>
-    <form id="articleForm" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="titre" class="form-label">Titolo</label>
-            <input type="text" class="form-control" id="titolo" placeholder="Inserire il titolo" required>
-        </div>
-        <div class="mb-3">
-            <label for="titre" class="form-label">Luogo</label>
-            <input type="text" class="form-control" id="luogo" placeholder="Inserire il luogo" required>
-        </div>
-        <div class="mb-3">
-    <label for="datetime" class="form-label">Data e ora</label>
-    <input type="text" class="form-control" id="datetime" placeholder="Selezionare la data e l'ora">
-</div>
+                    <div class="mb-3">
+                <label for="description" class="form-label">Descrizione</label>
+                <textarea class="form-control" id="descrizione" rows="4" placeholder="Inserire la descrizione"></textarea>
+            </div>
 
-<div class="mb-3">
-            <label for="titre" class="form-label">Hashtag</label>
-            <input type="text" class="form-control" id="hashtag" placeholder="Inserire l'hashtag corrispondente all'evento" required>
-        </div>
-
-        <div class="mb-3">
-    <label for="description" class="form-label">Descrizione</label>
-    <textarea class="form-control" id="descrizione" rows="4" placeholder="Inserire la descrizione"></textarea>
-</div>
-
-        <div class="mb-3">
-            <label for="image" class="form-label">Immagine</label>
-            <input type="file" class="form-control" id="image" accept="image/*" required>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Publiccare</button>
-    </form>
-</div>
-                   
-                    
-
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Immagine</label>
+                        <img id="previewImage" src="" alt="Image actuelle" width="100">
+                        <input type="file" class="form-control" id="image" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Modificare</button>
+                </form>
+            </div>
     </div>
     <!-- End of Page Wrapper -->
 
@@ -165,63 +138,71 @@ document.addEventListener("DOMContentLoaded", function () {
     const eventId = urlParams.get("id");
 
     if (!eventId) {
-        alert("Aucun événement sélectionné !");
-        window.location.href = "index.html";
+        alert("Nessun elemento selezionato !");
+        window.location.href = "evento";
         return;
     }
 
-    // Récupérer les données de l'événement
     fetch(`../api/evento/${eventId}`)
         .then(response => response.json())
         .then(data => {
-            console.log("Données reçues :", data);
 
          if (Array.isArray(data) && data.length > 0) {
-            let event = data[0];  // On prend le premier élément du tableau
+            let event = data[0];  
             
             document.getElementById("titolo").value = event.titolo ?? "";
+            document.getElementById("previewImage").src = `../img/${event.immagine}`;
             document.getElementById("luogo").value = event.luogo_svolgimento ?? "";
             document.getElementById("datetime").value = event.data_svolgimento ?? "";
             document.getElementById("descrizione").value = event.descrizione ?? "";
             document.getElementById("hashtag").value = event.hashtag ?? "";
             tinymce.get("descrizione").setContent(event.descrizione ?? "");
         } else {
-            console.error("Erreur : L'API ne retourne pas de données valides");
-            alert("Aucun événement trouvé !");
+            alert("Nessun elemento trovato!");
             window.location.href = "index";
         }
 
         })
-        .catch(error => console.error("Erreur de chargement :", error));
-
-    // Gérer la mise à jour
-    document.getElementById("articleForm").addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const updatedData = {
-            titolo: document.getElementById("titolo").value,
-            luogo_svolgimento: document.getElementById("luogo").value,
-            data_svolgimento: document.getElementById("datetime").value,
-            hashtag: document.getElementById("hashtag").value,
-            descrizione: tinymce.get("descrizione").getContent()
-        };
-
-        fetch(`../api/evento/${eventId}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updatedData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert("Événement mis à jour avec succès !");
-            window.location.href = "index.html";
-        })
-        .catch(error => console.error("Erreur de mise à jour :", error));
-    });
+        .catch(error => console.error("Errore :", error));
 });
 
 </script>
 
+
+<script>
+ document.getElementById("articleForm").addEventListener("submit", function(event) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = urlParams.get("id");
+    event.preventDefault(); 
+
+     tinymce.triggerSave(); 
+
+    let formData = new FormData();
+    formData.append("title", document.getElementById("titolo").value);
+    formData.append("luogo", document.getElementById("luogo").value);
+    formData.append("hashtag", document.getElementById("hashtag").value);
+    formData.append("datetime", document.getElementById("datetime").value);
+    formData.append("descrizione", document.getElementById("descrizione").value);
+    formData.append("hashtag", document.getElementById("hashtag").value);
+    formData.append("_method", "PUT");
+
+    let imageInput = document.getElementById("image");
+    if (imageInput.files.length > 0) {
+        formData.append("image", imageInput.files[0]); 
+    }
+    console.log(formData);
+
+    fetch(`../api/evento/${eventId}`, {
+        method: "POST",
+        body: formData
+    })
+    .then(() => {
+    window.location.href = "modifica";
+})
+
+});
+
+</script>
 
 
 </body>

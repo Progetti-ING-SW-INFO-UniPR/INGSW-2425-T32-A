@@ -14,8 +14,8 @@
                     <div class="nav-inner">
                         <!-- Start Navbar -->
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="index.html">
-                                <img src="assets/images/logo/logo.svg" alt="Logo">
+                            <a class="navbar-brand" href="evento">
+                                <img src="assets/images/logo/logo.png" alt="Logo">
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -45,15 +45,7 @@
                                    
                                    
                                 </ul>
-                            </div> <!-- navbar collapse -
-                            <div class="button">
-                                <a href="login/" class="btn">Accesso<i class="lni lni-user"></i></a>
                             </div>
-                            <div class="button">
-                                <a href="login/registrati.php" class="btn">Registrati<i class="lni lni-user"></i></a>
-                            </div>
-                        </nav>
-                                End Navbar -->
                     </div>
                 </div>
             </div> <!-- row -->
@@ -81,7 +73,7 @@
                             </div> <br>
                          <?php endif; ?>
                          <form id="searchForm" class="d-flex align-items-center">
-                            <input type="text" id="searchInput" class="form-control me-2" placeholder="@hashtag..." aria-label="Search">
+                            <input type="text" id="searchInput" class="form-control me-2" placeholder="#hashtag..." aria-label="Search">
                             <button class="btn btn-primary" type="submit">
                                 <i class="lni lni-search"></i>
                             </button>
@@ -148,11 +140,11 @@
     <script src="assets/js/count-up.min.js"></script>
     <script src="assets/js/main.js"></script>
 
-<script> 
-let isSearching = false; // Variable pour savoir si on est en recherche
+    <script>
+let isSearching = false; // Indicateur de recherche en cours
 
 function getAllArticles() {
-    if(isSearching) return;
+    if (isSearching) return; // Bloque la mise à jour si une recherche est en cours
 
     fetch('api/evento')
         .then(response => response.json())
@@ -160,8 +152,8 @@ function getAllArticles() {
             const container = document.getElementById("getEvent");
             container.innerHTML = ""; 
 
-            let numero=articles[0];
-            document.getElementById("hours").textContent=numero.totale;
+            let numero = articles[0];
+            document.getElementById("hours").textContent = numero.totale;
 
             articles.forEach(article => {
                 const articleHTML = `
@@ -179,9 +171,10 @@ function getAllArticles() {
                                     <span class="event-hashtag">#${article.hashtag}</span>
                                 </div>
                                 <p class="event-description">${article.descrizione.substring(0, 100)}...</p>
-                                
                                 <div class="event-footer">
-                                   <a href="show_evento?id=${article.id_evento}"> <button class="btn btn-primary btn-iscriversi" data-id="${article.id_evento}"> Iscriversi</button></a>
+                                   <a href="show_evento?id=${article.id_evento}">
+                                       <button class="btn btn-primary btn-iscriversi" data-id="${article.id_evento}"> Iscriversi</button>
+                                   </a>
                                 </div>
                             </div>
                         </div>
@@ -193,14 +186,11 @@ function getAllArticles() {
         .catch(error => console.error("Erreur:", error));
 }
 
-    getAllArticles();
+// Lancement initial et mise à jour auto toutes les 5 secondes
+getAllArticles();
+setInterval(getAllArticles, 5000);
 
-   setInterval(getAllArticles, 5000);
-
-
-</script>
-
-<script>
+// Fonction de recherche
 document.getElementById("searchForm").addEventListener("submit", function (e) {
     e.preventDefault(); // Empêche le rechargement de la page
 
@@ -208,10 +198,14 @@ document.getElementById("searchForm").addEventListener("submit", function (e) {
 
     if (hashtag === "") {
         alert("Deve inserire una parola !");
+        isSearching = false; // Réactiver l'auto-refresh si le champ est vide
+        getAllArticles();
         return;
     }
 
-    fetch(`api/backend/${encodeURIComponent(hashtag)}`)
+    isSearching = true; // Désactiver l'auto-refresh pendant la recherche
+
+    fetch(`api/hashtag/${encodeURIComponent(hashtag)}`)
         .then(response => response.json())
         .then(events => {
             console.log(events);
@@ -233,14 +227,16 @@ document.getElementById("searchForm").addEventListener("submit", function (e) {
                             <div class="event-body">
                                 <h3 class="event-title">${event.titolo}</h3>
                                 <div class="event-meta">
-                                    <span><i class="lni lni-user"></i> ${event.nome_utente}</span>
+                                    <span><i class="lni lni-user"></i> ${event.nome_utente} | ${event.tipologia} </span>
                                     <span><i class="lni lni-map-marker"></i> ${event.luogo_svolgimento}</span>
                                     <span><i class="lni lni-calendar"></i> ${event.data_svolgimento}</span>
                                     <span class="event-hashtag">#${event.hashtag}</span>
                                 </div>
                                 <p class="event-description">${event.descrizione.substring(0, 100)}...</p>
                                 <div class="event-footer">
-                                    <button class="btn btn-primary btn-iscriversi" data-id="${event.id_evento}">Iscriversi</button>
+                                   <a href="show_evento?id=${event.id_evento}">
+                                       <button class="btn btn-primary btn-iscriversi" data-id="${event.id_evento}"> Iscriversi</button>
+                                   </a>
                                 </div>
                             </div>
                         </div>
@@ -250,6 +246,14 @@ document.getElementById("searchForm").addEventListener("submit", function (e) {
             });
         })
         .catch(error => console.error("Erreur:", error));
+});
+
+// Réactiver l'auto-refresh si l'utilisateur efface le champ
+document.getElementById("searchInput").addEventListener("input", function () {
+    if (this.value.trim() === "") {
+        isSearching = false;
+        getAllArticles();
+    }
 });
 </script>
 
