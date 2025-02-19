@@ -72,12 +72,12 @@
                 <div class="col-lg-12 col-md-6 col-sm-12">
                     <div class="event-card">
                         <div class="event-image">
-                            <img style=" width: 70%;          /* Prendre toute la largeur de son conteneur sans être coupée */
-    height: auto;         /* Garder les proportions de l'image */
-    object-fit: contain;  /* Adapter l'image à l'espace disponible sans la déformer */
-    max-width: 70%;      /* Ne pas dépasser la largeur du conteneur */
-    display: block;
-    margin: 0 auto;      " id="immagine" src="" alt="Immagine dell'evento">
+                                        <img style=" width: 70%;          /* Prendre toute la largeur de son conteneur sans être coupée */
+                height: auto;         /* Garder les proportions de l'image */
+                object-fit: contain;  /* Adapter l'image à l'espace disponible sans la déformer */
+                max-width: 70%;      /* Ne pas dépasser la largeur du conteneur */
+                display: block;
+                margin: 0 auto;      " id="immagine" src="" alt="Immagine dell'evento">
                         </div>
                         <div class="event-body">
                             <h3 id="titolo" class="event-title"></h3>
@@ -189,7 +189,6 @@
 
                     console.log(event);
 
-                    // 🟢 Mise à jour du contenu HTML avec les données de l'événement
                     document.getElementById("titolo").textContent = event.titolo ?? "Senza titolo";
                     document.getElementById("immagine").src = event.immagine ? `img/${event.immagine}` : "img/default.jpg";
                     document.getElementById("nome_utente").textContent = event.nome_utente ?? "Anonimo";
@@ -198,8 +197,6 @@
                     document.getElementById("hashtag").textContent = "#" + (event.hashtag ?? "Senza hashtag");
                     document.getElementById("descrizione").innerHTML = event.descrizione;
 
-
-                    // Mettre l'ID dans le bouton d'inscription
                     document.querySelector(".btn-iscriversi").setAttribute("data-id", event.id_evento);
                 })
                 .catch(error => console.error("Erreur:", error));
@@ -219,29 +216,24 @@
             const btnForm = document.getElementById("btn-form");
             const formInscription = document.getElementById("form-inscription");
 
-            // Ouvrir la modale quand on clique sur le bouton "Iscriviti"
             document.querySelector(".btn-iscriversi").addEventListener("click", function () {
                 modal.style.display = "flex";
             });
 
-            // Fermer la modale
             closeModal.addEventListener("click", function () {
                 modal.style.display = "none";
             });
 
-            // Rediriger vers la connexion
             btnLogin.addEventListener("click", function () {
                 window.location.href = "../login/index?id=<?= $_GET['id'];?>";
             });
 
-            // Afficher le formulaire d'inscription
             btnForm.addEventListener("click", function () {
                 formInscription.classList.remove("hidden");
                 btnForm.style.display = "none";
                 btnLogin.style.display = "none";
             });
 
-            // Envoyer les données du formulaire
             formInscription.addEventListener("submit", function (e) {
                 e.preventDefault();
 

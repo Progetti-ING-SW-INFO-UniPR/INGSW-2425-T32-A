@@ -1,0 +1,35 @@
+Istruzione per l'installazione dell'applicazione web "Event App" - contenitore di eventi per i ricercatori
+----------------------------------------------------------------------------------------------------------
+
+L'applicazione è stata lavorata usando docker lato server, bisogna installare Docker Desktop per poter usare docker.
+
+1 - Clonare la repository GitHub dove si trova i file del progetto (documentazione, html, mysql_data, docker-compose.yml,Dockerfile,dump.sql)
+L'utente deve avviare il command line del proprio computer e lanciare il comando git clone https://github.com/JeremieKorangi/contenitore_eventi_ricercatori.git
+Dopo aver clonato la repository che contiene i file, l'utente deve entrare all'interno della cartella del percorso corrente con il comando cd contenitore_eventi_ricercatori
+
+
+2 - Lanciare il dockerfile
+Di default pdo non è installato nella versione di php fornito, e per l'api rest, dobbiamo abilitare il modulo Apache mod_rewrite.
+Sempre nel comand line, lanciare il comando docker-compose build
+
+
+3 - Lanciare i container
+Il file compose fornisce tre container tra cui : web, db, phpmyadmin
+Per avviarlo, lanciare il comando docker-compose up -d
+
+
+4 - Installare il database 
+Nel proprio browser web, ricercare localhost:8080, che apre phpMyAdmin, dove è richiesto l'inserimento delle credenziali definite all'interno del file compose, di default nome : root  password: root_password
+Dopo che la connessione sia stabilita, creare un database con il nome "test"
+Tornare nel command line e lanciare il comando docker exec -i <nome_container> mysql -u root -proot_password test < dump.sql
+nome_container : deve essere il nome del container che gestisce il database 
+Per esempio : docker exec -i contenitore_eventi_ricercatori-db-1 mysql -u root -proot_password test < dump.sql
+
+
+5 - Modificare il file di configurazione del database
+Entrare nella cartella api, e modificare il file database.php, cambiando la variabile $host da ids-db-1 al nome del proprio container
+Per esempio $host="contenitore_eventi_ricercatori-db-1";
+
+
+6 - Lanciare l'applicazione
+Aprire il browser web e ricercare localhost/
