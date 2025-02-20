@@ -134,6 +134,7 @@
     <script src="js/demo/chart-pie-demo.js"></script>
 
     <script src="js/notifica.js"></script>
+    <script src="js/inattivita.js"></script>
     <script>
         function getStatistiche() {
     fetch("../api/backend?action=statistiche")
