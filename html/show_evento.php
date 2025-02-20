@@ -12,7 +12,6 @@
             <div class="row align-items-center">
                 <div class="col-lg-10">
                     <div class="nav-inner">
-                        <!-- Start Navbar -->
                         <nav class="navbar navbar-expand-lg">
                             <a class="navbar-brand" href="evento">
                                 <img src="assets/images/logo/logo.png" alt="Logo">
@@ -72,10 +71,10 @@
                 <div class="col-lg-12 col-md-6 col-sm-12">
                     <div class="event-card">
                         <div class="event-image">
-                                        <img style=" width: 70%;          /* Prendre toute la largeur de son conteneur sans être coupée */
-                height: auto;         /* Garder les proportions de l'image */
-                object-fit: contain;  /* Adapter l'image à l'espace disponible sans la déformer */
-                max-width: 70%;      /* Ne pas dépasser la largeur du conteneur */
+                                        <img style=" width: 70%;         
+                height: auto;        
+                object-fit: contain; 
+                max-width: 70%;     
                 display: block;
                 margin: 0 auto;      " id="immagine" src="" alt="Immagine dell'evento">
                         </div>
@@ -92,7 +91,6 @@
 
                          <div class="event-buttons">
                             <?php if (isset($_SESSION['id_account'])): ?>
-                                <!-- Bouton pour les utilisateurs connectés -->
                                 <a href="evento"><button class="btn-cancel">Annulla</button></a>
                                 <button class="btn-register" id="btn-register">Iscriviti</button>
                             <?php else: ?>
@@ -102,7 +100,6 @@
                         </div>
 
                         
-                            <!-- Fenêtre modale -->
                         <div id="modal-inscription" class="modal">
                             <div class="modal-content">
                                 <span class="close">&times;</span>
@@ -125,10 +122,7 @@
             </div>
         </div>
     </section>
-    <!-- /End Features Area -->
-
-
-
+ 
     <!-- ========================= scroll-top ========================= -->
     <a href="#" class="scroll-top">
         <i class="lni lni-chevron-up"></i>
@@ -144,28 +138,27 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const action = urlParams.get("action");
-    const eventId = urlParams.get("id");
-    const userId = <?php echo isset($_SESSION['id_account']) ? $_SESSION['id_account'] : 'null'; ?>;
+        const urlParams = new URLSearchParams(window.location.search);
+        const action = urlParams.get("action");
+        const eventId = urlParams.get("id");
+        const userId = <?php echo isset($_SESSION['id_account']) ? $_SESSION['id_account'] : 'null'; ?>;
 
-    if (action === "view" && eventId && userId) {
-        fetch("../api/backend?action=rimozione_notifica", {
-            method: "DELETE",
-            body: JSON.stringify({ action: "marcare_letto", id_account: userId, id_evento: eventId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Notification marquée comme lue !");
-            } else {
-                console.error("Erreur: " + data.message);
-            }
-        })
-        .catch(error => console.error("Erreur:", error));
-    }
-});
-
+        if (action === "view" && eventId && userId) {
+            fetch("../api/backend?action=rimozione_notifica", {
+                method: "DELETE",
+                body: JSON.stringify({ action: "marcare_letto", id_account: userId, id_evento: eventId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Notifica letta !");
+                } else {
+                    console.error("Erreur: " + data.message);
+                }
+            })
+            .catch(error => console.error("Erreur:", error));
+        }
+    });
     </script>
 
     <script>
@@ -199,16 +192,15 @@
 
                     document.querySelector(".btn-iscriversi").setAttribute("data-id", event.id_evento);
                 })
-                .catch(error => console.error("Erreur:", error));
+                .catch(error => console.error("Errore:", error));
         }
 
         </script>
 
         <script>
 
-
         document.addEventListener("DOMContentLoaded", function () {
-            const eventId = new URLSearchParams(window.location.search).get("id"); // ID de l'événement
+            const eventId = new URLSearchParams(window.location.search).get("id"); 
 
             const modal = document.getElementById("modal-inscription");
             const closeModal = document.querySelector(".close");
@@ -300,7 +292,7 @@
             });
         }
     });
-</script>
+    </script>
 
 
 </body>

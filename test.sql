@@ -25,11 +25,11 @@ DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
   `id_account` int NOT NULL AUTO_INCREMENT,
   `indirizzo_mail` varchar(50) NOT NULL,
-  `mdp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tipologia` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `mdp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `tipologia` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `nome_utente` varchar(50) NOT NULL,
   PRIMARY KEY (`id_account`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (19,'jerekora@gmail.com','$2y$10$k7JWrYXIZg6vWUlXJyHa/.gl3m/59kF9ri4C00bcsR2nol1En2RFy','ricercatore','kora'),(20,'virgo@gmail.com','$2y$10$Pq94rS6sST.3NA6lnuK0wu/K7Nr1zjClJpr4NcwGKr2QYAUtAyHUC','ricercatore','Virginie korangi');
+INSERT INTO `account` VALUES (19,'jerekora@gmail.com','$2y$10$k7JWrYXIZg6vWUlXJyHa/.gl3m/59kF9ri4C00bcsR2nol1En2RFy','ricercatore','kora'),(20,'virgo@gmail.com','$2y$10$Pq94rS6sST.3NA6lnuK0wu/K7Nr1zjClJpr4NcwGKr2QYAUtAyHUC','ricercatore','Virginie korangi'),(21,'ergo@gmail.com','$2y$10$lhQgeUumWVqlDP8wGF7Rt.xXLAtv.gsQUD0jbeJCkTAWNiI91H.Na','Altri_enti','Er Go');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,14 +54,14 @@ CREATE TABLE `eventi` (
   `titolo` varchar(50) NOT NULL,
   `descrizione` text NOT NULL,
   `data_svolgimento` text NOT NULL,
-  `luogo_svolgimento` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `luogo_svolgimento` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `autore` varchar(50) NOT NULL,
   `data_creazione` date DEFAULT NULL,
-  `immagine` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `immagine` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `status` text,
-  `hashtag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `hashtag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id_evento`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `iscrizione` (
   `account` varchar(255) NOT NULL,
   `evento` int NOT NULL,
   PRIMARY KEY (`id_iscrizione`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `notifica` (
   `utente` int NOT NULL,
   `evento` int NOT NULL,
   PRIMARY KEY (`id_notifica`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,4 +137,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-14 23:02:29
+-- Dump completed on 2025-02-20 10:12:23

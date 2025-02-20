@@ -6,11 +6,9 @@ require_once "view.php";
 
 class Presenter {
     private $model;
-    private $view;
 
     public function __construct($db) {
         $this->model = new model($db);
-        $this->view = new view();
     }
 
     public function handleRequest($method, $data,$id) {
@@ -21,7 +19,7 @@ class Presenter {
                     echo json_encode($articles);
                 }else{
                     $articles = $this->model->getEventi();
-                    $this->view->response($articles);
+                    echo json_encode($articles);
                 } 
                 
                 break;
@@ -51,13 +49,13 @@ class Presenter {
                        echo json_encode(["success" => false, "message" => "Errore"]);
                    }
                 } else {
-                       $this->view->error("Invalid data provided.");
-               }
+                    echo json_encode(["success"=>false, "message"=>"Errore"]);
+                }
                break;
 
             default:
-                $this->view->error("Invalid request method", 405);
-                break;
+                 echo json_encode(["success"=>false, "message"=>"Errore"]);
+            break;
         }
     }
 

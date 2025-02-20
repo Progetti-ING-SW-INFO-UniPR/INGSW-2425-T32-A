@@ -1,1 +1,0 @@
-{"action":"statistiche","id_account":"20"}

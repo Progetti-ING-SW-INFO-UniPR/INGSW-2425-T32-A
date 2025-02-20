@@ -141,76 +141,74 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-let isSearching = false; // Indicateur de recherche en cours
+    let isSearching = false; 
 
-function getAllArticles() {
-    if (isSearching) return; // Bloque la mise à jour si une recherche est en cours
+    function getAllArticles() {
+        if (isSearching) return; 
 
-    fetch('api/evento')
-        .then(response => response.json())
-        .then(articles => {
-            const container = document.getElementById("getEvent");
-            container.innerHTML = ""; 
+        fetch('api/evento')
+            .then(response => response.json())
+            .then(articles => {
+                const container = document.getElementById("getEvent");
+                container.innerHTML = ""; 
 
-            let numero = articles[0];
-            document.getElementById("hours").textContent = numero.totale;
+                let numero = articles[0];
+                document.getElementById("hours").textContent = numero.totale;
 
-            articles.forEach(article => {
-                const articleHTML = `
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="event-card">
-                            <div class="event-image">
-                                <img src="img/${article.immagine}" alt="${article.titolo}">
-                            </div>
-                            <div class="event-body">
-                                <h3 class="event-title">${article.titolo}</h3>
-                                <div class="event-meta">
-                                    <span><i class="lni lni-user"></i> ${article.nome_utente} | ${article.tipologia} </span>
-                                    <span><i class="lni lni-map-marker"></i> ${article.luogo_svolgimento}</span>
-                                    <span><i class="lni lni-calendar"></i> ${article.data_svolgimento}</span>
-                                    <span class="event-hashtag">#${article.hashtag}</span>
+                articles.forEach(article => {
+                    const articleHTML = `
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="event-card">
+                                <div class="event-image">
+                                    <img src="img/${article.immagine}" alt="${article.titolo}">
                                 </div>
-                                <p class="event-description">${article.descrizione.substring(0, 100)}...</p>
-                                <div class="event-footer">
-                                   <a href="show_evento?id=${article.id_evento}">
-                                       <button class="btn btn-primary btn-iscriversi" data-id="${article.id_evento}"> Iscriversi</button>
-                                   </a>
+                                <div class="event-body">
+                                    <h3 class="event-title">${article.titolo}</h3>
+                                    <div class="event-meta">
+                                        <span><i class="lni lni-user"></i> ${article.nome_utente} | ${article.tipologia} </span>
+                                        <span><i class="lni lni-map-marker"></i> ${article.luogo_svolgimento}</span>
+                                        <span><i class="lni lni-calendar"></i> ${article.data_svolgimento}</span>
+                                        <span class="event-hashtag">#${article.hashtag}</span>
+                                    </div>
+                                    <p class="event-description">${article.descrizione.substring(0, 100)}...</p>
+                                    <div class="event-footer">
+                                    <a href="show_evento?id=${article.id_evento}">
+                                        <button class="btn btn-primary btn-iscriversi" data-id="${article.id_evento}"> Iscriversi</button>
+                                    </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                `;
-                container.innerHTML += articleHTML;
-            });
-        })
-        .catch(error => console.error("Erreur:", error));
-}
+                    `;
+                    container.innerHTML += articleHTML;
+                });
+            })
+            .catch(error => console.error("Erreur:", error));
+    }
 
-// Lancement initial et mise à jour auto toutes les 5 secondes
 getAllArticles();
 setInterval(getAllArticles, 5000);
 
-// Fonction de recherche
 document.getElementById("searchForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // Empêche le rechargement de la page
+    e.preventDefault(); 
 
     let hashtag = document.getElementById("searchInput").value.trim();
 
     if (hashtag === "") {
         alert("Deve inserire una parola !");
-        isSearching = false; // Réactiver l'auto-refresh si le champ est vide
+        isSearching = false; 
         getAllArticles();
         return;
     }
 
-    isSearching = true; // Désactiver l'auto-refresh pendant la recherche
+    isSearching = true; 
 
     fetch(`api/hashtag/${encodeURIComponent(hashtag)}`)
         .then(response => response.json())
         .then(events => {
             console.log(events);
             const container = document.getElementById("getEvent");
-            container.innerHTML = ""; // Vide l'affichage précédent
+            container.innerHTML = ""; 
 
             if (events.length === 0) {
                 container.innerHTML = "<p>Nessun elemento trovato.</p>";
@@ -248,7 +246,6 @@ document.getElementById("searchForm").addEventListener("submit", function (e) {
         .catch(error => console.error("Erreur:", error));
 });
 
-// Réactiver l'auto-refresh si l'utilisateur efface le champ
 document.getElementById("searchInput").addEventListener("input", function () {
     if (this.value.trim() === "") {
         isSearching = false;

@@ -3,7 +3,6 @@
     attivazione_sessione("nome_utente")
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 

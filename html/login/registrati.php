@@ -52,14 +52,9 @@
 					</div>
 				</form>
 
-              <a href="../index.php"><button class="btn btn-success" style="float:left">Home page</button></a>
+                 <a href="../index.php"><button class="btn btn-success" style="float:left">Home page</button></a>
 
-			<a href="index"><button class="btn btn-success" style="float:right">Accedere</button></a>  
-	          <!--<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-	          <div class="social d-flex text-center">
-	          	<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
-	          	<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
-	          </div> -->
+			    <a href="index"><button class="btn btn-success" style="float:right">Accedere</button></a>  
 		      </div>
 				</div>
 			</div>
@@ -73,7 +68,7 @@
   <script>
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("signupForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Empêche l'envoi du formulaire
+        event.preventDefault(); 
 
         let nomeUtente = document.getElementById("nome_utente").value.trim();
         let email = document.getElementById("indirizzo_mail").value.trim();
@@ -137,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // Fonction pour afficher/masquer le mot de passe
     document.querySelectorAll(".toggle-password").forEach(function (toggle) {
         toggle.addEventListener("click", function () {
             let passwordField = document.querySelector(toggle.getAttribute("toggle"));

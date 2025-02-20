@@ -110,41 +110,41 @@
     <script src="js/notifica.js"></script>
 
     <script>
-function getAllArticles() {
-    fetch('../api/backend')
-        .then(response => response.json())
-        .then(data => {
-            console.log("Données reçues:", data); 
-            const articles = data.eventi;
 
-            if (!Array.isArray(articles)) {
-                throw new Error("Les données reçues ne sont pas un tableau !");
-            }
-            const container = document.getElementById("getEvent");
-            container.innerHTML = ""; 
+    function getAllArticles() {
+        fetch('../api/backend')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Données reçues:", data); 
+                const articles = data.eventi;
 
-            articles.forEach((article, index) => { 
-                const articleHTML = `
-                     <tr>
-                                            <td><img src="../img/${article.immagine}" style="width: 120px; height: 80px; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);" alt="Aperçu de l'événement"></td>      
-                                            <td>${article.titolo}</td>
-                                            <td>${article.descrizione}</td>
-                                            <td>${article.luogo_svolgimento}</td>
-                                            <td>${article.data_svolgimento}</td>
-                                            <td>${article.data_creazione}</td>
-                                        </tr>
-                   
-                `;
+                if (!Array.isArray(articles)) {
+                    throw new Error("I dati non sono ricevuti correttamente !");
+                }
+                const container = document.getElementById("getEvent");
+                container.innerHTML = ""; 
 
-                container.innerHTML += articleHTML;
-            });
-        })
-        .catch(error => console.error("Erreur:", error));
-}
-    getAllArticles();
+                articles.forEach((article, index) => { 
+                    const articleHTML = `
+                        <tr>
+                                                <td><img src="../img/${article.immagine}" style="width: 120px; height: 80px; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);" alt="Aperçu de l'événement"></td>      
+                                                <td>${article.titolo}</td>
+                                                <td>${article.descrizione}</td>
+                                                <td>${article.luogo_svolgimento}</td>
+                                                <td>${article.data_svolgimento}</td>
+                                                <td>${article.data_creazione}</td>
+                                            </tr>
+                    
+                    `;
 
-   setInterval(getAllArticles, 5000);
+                    container.innerHTML += articleHTML;
+                });
+            })
+            .catch(error => console.error("Errore:", error));
+    }
+        getAllArticles();
 
+    setInterval(getAllArticles, 5000);
 
 </script>
 

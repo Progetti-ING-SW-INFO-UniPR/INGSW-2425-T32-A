@@ -23,7 +23,6 @@ function getAllArticles() {
                 container.innerHTML += articleHTML;
             });
 
-            // Ajouter un écouteur d'événement aux nouveaux boutons
             document.querySelectorAll(".cancellare-evento").forEach(btn => {
                 btn.addEventListener("click", function (event) {
                     event.preventDefault(); 
@@ -37,7 +36,6 @@ function getAllArticles() {
 getAllArticles();
 setInterval(getAllArticles, 5000);
 
-// Supprimer une inscription à un événement
 function cancellare_evento(element) {
     let articleId = element.getAttribute("data-id"); 
 
